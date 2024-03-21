@@ -58,7 +58,7 @@ public class Baby extends BaseEntity{
      * members테이블에 member_id 컬럼을 참조
      */
     @ManyToOne
-    @JoinColumn(name = "member_id", referencedColumnName = "member_id")
+    @JoinColumn(name = "memberId", referencedColumnName = "memberId")
     private Member member;
 
 }

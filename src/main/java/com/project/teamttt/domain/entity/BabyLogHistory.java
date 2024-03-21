@@ -39,6 +39,6 @@ public class BabyLogHistory extends BaseEntity{
      * babys테이블에 baby_id 컬럼을 참조
      */
     @ManyToOne
-    @JoinColumn(name = "baby_id", referencedColumnName = "baby_id")
+    @JoinColumn(name = "babyId", referencedColumnName = "babyId")
     private Baby baby;
 }
