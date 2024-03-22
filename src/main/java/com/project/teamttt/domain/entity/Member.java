@@ -14,11 +14,11 @@ import java.util.List;
 
 @Entity
 @Table(name = "Members")
+@NoArgsConstructor(access = AccessLevel.PUBLIC) // public 기본 생성자 추가
+@AllArgsConstructor(access = AccessLevel.PROTECTED) // 다른 생성자를 사용하기 위해 protected all args 생성자 추가
 @Builder
 @Getter
 @Setter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
 
 public class Member extends BaseEntity{
 
@@ -37,11 +37,13 @@ public class Member extends BaseEntity{
     /**
      * 맴버 패스워드
      */
+    @Column(nullable = true)
     private String password;
 
     /**
      * 맴버 닉네임
      */
+    @Column(nullable = true)
     private String nickname;
 
     /**

@@ -10,6 +10,7 @@ public class GoogleInfResponseDto {
     private String azp;
     private String aud;
     private String sub;
+    private String social;
     private String email;
     private String email_verified;
     private String at_hash;

@@ -3,6 +3,9 @@ package com.project.teamttt.api.auth.google.service;
 import com.project.teamttt.api.auth.google.dto.GoogleInfResponseDto;
 import com.project.teamttt.api.auth.google.dto.GoogleRequestDto;
 import com.project.teamttt.api.auth.google.dto.GoogleResponseDto;
+import com.project.teamttt.domain.entity.Member;
+import com.project.teamttt.domain.repository.jpa.MemberRepository;
+import com.project.teamttt.util.RandomNickName;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -11,9 +14,11 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.HashMap;
 import java.util.Map;
-
 @Service
 public class GoogleAuthService {
+
+    @Autowired
+    private MemberRepository memberRepository;
 
     @Autowired
     private RestTemplate restTemplate;
@@ -22,7 +27,7 @@ public class GoogleAuthService {
     private String googleClientId;
 
     @Value("${google.client.secret}")
-    private String googleClienSecret;
+    private String googleClientSecret;
 
     @Value("${google.provider.resource-url}")
     private String googleResourceUrl;
@@ -37,7 +42,7 @@ public class GoogleAuthService {
         GoogleRequestDto googleOAuthRequestParam = GoogleRequestDto
                 .builder()
                 .clientId(googleClientId)
-                .clientSecret(googleClienSecret)
+                .clientSecret(googleClientSecret)
                 .code(authCode)
                 .redirectUri("http://localhost:8080/google/oauth2/callback")
                 .grantType("authorization_code").build();
@@ -49,6 +54,15 @@ public class GoogleAuthService {
         ResponseEntity<GoogleInfResponseDto> resultEntity2 = restTemplate.postForEntity(googleResourceUrl,
                 map, GoogleInfResponseDto.class);
         String email = resultEntity2.getBody().getEmail();
-        return email;
+        String social = "GOOGLE";
+        String randomNickname = RandomNickName.generateRandomNickname();
+
+        Member member = new Member();
+        member.setEmail(email);
+        member.setSocial(social);
+        member.setNickname(randomNickname); // 랜덤 닉네임 설정
+        memberRepository.save(member);
+
+        return "login success";
     }
 }
