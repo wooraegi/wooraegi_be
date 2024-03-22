@@ -27,6 +27,6 @@ public class BabyLogItem extends BaseEntity{
      * baby_log 테이블에 baby_log_id 컬럼을 참조
      */
     @ManyToOne
-    @JoinColumn(name = "baby_log_id", referencedColumnName = "baby_log_id")
+    @JoinColumn(name = "babyLogId", referencedColumnName = "babyLogId")
     private BabyLog babyLog;
 }
