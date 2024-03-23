@@ -20,10 +20,10 @@ public class BabyLog extends BaseEntity{
     private Long babyLogId;
 
     /**
-     * babys테이블에 baby_id 컬럼을 참조
+     * babys테이블에 babyId 컬럼을 참조
      */
     @ManyToOne
-    @JoinColumn(name = "baby_id", referencedColumnName = "baby_id")
+    @JoinColumn(name = "babyId", referencedColumnName = "babyId")
     private Baby baby;
 
 }
