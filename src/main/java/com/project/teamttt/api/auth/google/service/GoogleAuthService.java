@@ -23,13 +23,13 @@ public class GoogleAuthService {
     @Autowired
     private RestTemplate restTemplate;
 
-    @Value("${google.client.id}")
+    @Value("${spring.security.oauth2.client.registration.google.client-id}")
     private String googleClientId;
 
-    @Value("${google.client.secret}")
+    @Value("${spring.security.oauth2.client.registration.google.client-secret}")
     private String googleClientSecret;
 
-    @Value("${google.provider.resource-url}")
+    @Value("${spring.security.oauth2.client.registration.google.redirect-uri}")
     private String googleResourceUrl;
 
     public String getLoginUrl() {
