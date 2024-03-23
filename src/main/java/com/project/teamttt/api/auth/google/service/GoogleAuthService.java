@@ -9,19 +9,27 @@ import com.project.teamttt.util.RandomNickName;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
+import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
+import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 @Service
-public class GoogleAuthService {
+public class GoogleAuthService extends DefaultOAuth2UserService {
 
     @Autowired
     private MemberRepository memberRepository;
 
     @Autowired
     private RestTemplate restTemplate;
+
 
     @Value("${spring.security.oauth2.client.registration.google.client-id}")
     private String googleClientId;
@@ -30,7 +38,9 @@ public class GoogleAuthService {
     private String googleClientSecret;
 
     @Value("${spring.security.oauth2.client.registration.google.redirect-uri}")
+
     private String googleResourceUrl;
+
 
     public String getLoginUrl() {
         String reqUrl = "https://accounts.google.com/o/oauth2/v2/auth?client_id=" + googleClientId
@@ -64,5 +74,25 @@ public class GoogleAuthService {
         memberRepository.save(member);
 
         return "login success";
+    }
+
+    @Override
+    public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
+        OAuth2User oAuth2User = super.loadUser(userRequest);
+        System.out.println("oAuth2User = " + oAuth2User);
+
+        String registrationId = userRequest.getClientRegistration().getRegistrationId();
+
+        if (registrationId.equals("google")) {
+            GoogleInfResponseDto oAuth2Response = new GoogleInfResponseDto(oAuth2User.getAttributes());
+            OAuth2User defaultOAuth2User = new DefaultOAuth2User(
+                    Collections.singleton(new SimpleGrantedAuthority("ROLE_USER")), // 권한 설정
+                    oAuth2User.getAttributes(), // 속성
+                    "sub" // 기본 ID 속성
+            );
+            return defaultOAuth2User;
+        }
+
+        return oAuth2User;
     }
 }
