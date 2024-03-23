@@ -36,4 +36,6 @@ public abstract class BaseEntity {
 
     @LastModifiedBy
     protected Long updatedBy;
+
+
 }
