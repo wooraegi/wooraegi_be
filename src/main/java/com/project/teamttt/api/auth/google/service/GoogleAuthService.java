@@ -37,7 +37,8 @@ public class GoogleAuthService extends DefaultOAuth2UserService {
     @Value("${spring.security.oauth2.client.registration.google.client-secret}")
     private String googleClientSecret;
 
-    @Value("${spring.security.oauth2.client.registration.google.client.redirect-uri}")
+    @Value("${spring.security.oauth2.client.registration.google.redirect-uri}")
+
     private String googleResourceUrl;
 
 
