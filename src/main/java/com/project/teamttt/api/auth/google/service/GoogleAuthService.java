@@ -9,20 +9,13 @@ import com.project.teamttt.util.RandomNickName;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
-import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
-import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
-import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
-import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 @Service
-public class GoogleAuthService extends DefaultOAuth2UserService {
+public class GoogleAuthService {
 
     @Autowired
     private MemberRepository memberRepository;
@@ -74,25 +67,5 @@ public class GoogleAuthService extends DefaultOAuth2UserService {
         memberRepository.save(member);
 
         return "login success";
-    }
-
-    @Override
-    public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
-        OAuth2User oAuth2User = super.loadUser(userRequest);
-        System.out.println("oAuth2User = " + oAuth2User);
-
-        String registrationId = userRequest.getClientRegistration().getRegistrationId();
-
-        if (registrationId.equals("google")) {
-            GoogleInfResponseDto oAuth2Response = new GoogleInfResponseDto(oAuth2User.getAttributes());
-            OAuth2User defaultOAuth2User = new DefaultOAuth2User(
-                    Collections.singleton(new SimpleGrantedAuthority("ROLE_USER")), // 권한 설정
-                    oAuth2User.getAttributes(), // 속성
-                    "sub" // 기본 ID 속성
-            );
-            return defaultOAuth2User;
-        }
-
-        return oAuth2User;
     }
 }
