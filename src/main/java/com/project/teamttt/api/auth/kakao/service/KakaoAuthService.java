@@ -1,13 +1,17 @@
 package com.project.teamttt.api.auth.kakao.service;
 
 import com.project.teamttt.api.auth.kakao.dto.KakaoAuthRequestDto;
+import com.project.teamttt.domain.entity.Member;
+import com.project.teamttt.domain.repository.jpa.MemberRepository;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class KakaoAuthService {
@@ -20,6 +24,9 @@ public class KakaoAuthService {
 
     @Value("${kakao.redirect.url}")
     private String kakaoRedirectUrl;
+
+    @Autowired
+    private MemberRepository memberRepository;
 
     private final static String KAKAO_AUTH_URI = "https://kauth.kakao.com";
     private final static String KAKAO_API_URI = "https://kapi.kakao.com";
@@ -90,7 +97,6 @@ public class KakaoAuthService {
             JSONObject account = jsonObj.getJSONObject("kakao_account");
             JSONObject profile = account.getJSONObject("profile");
 
-            long id = jsonObj.getLong("id");
             String email = account.getString("email");
             String nickname = profile.getString("nickname");
 
@@ -100,6 +106,26 @@ public class KakaoAuthService {
                     .build();
         } else {
             throw new Exception("API call returned null response body");
+        }
+    }
+
+    @Transactional
+    public void loginWithKakao(String code) throws Exception {
+        try {
+            KakaoAuthRequestDto kakaoAuthRequestDto = getKakaoInfo(code);
+
+            // 가져온 이메일과 닉네임으로 Member 엔티티를 생성하여 저장
+            Member member = new Member();
+            member.setEmail(kakaoAuthRequestDto.getEmail());
+            member.setNickname(kakaoAuthRequestDto.getNickname());
+            member.setSocial("KAKAO"); // 카카오 소셜 로그인임을 표시
+
+            memberRepository.save(member);
+        } catch (Exception e) {
+            // 예외 발생 시 로그 출력
+            e.printStackTrace();
+            // 예외를 적절히 처리하거나 상위로 전파할 수 있습니다.
+            throw new Exception("Failed to login with Kakao", e);
         }
     }
 }
