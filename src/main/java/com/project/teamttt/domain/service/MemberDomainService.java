@@ -24,6 +24,7 @@ public class MemberDomainService implements UserDetailsService {
                         .password(requestCreate.getPassword())
                         .nickname(requestCreate.getNickname())
                         .social(requestCreate.getSocial())
+                        .role(requestCreate.getRole())
                         .build()
         );
     }
@@ -33,7 +34,12 @@ public class MemberDomainService implements UserDetailsService {
         }
         return false;
     }
-
+    public Boolean existsByNickname(String nickname){
+        if(memberRepository.existsByNickname(nickname)){
+            return true;
+        }
+        return false;
+    }
     public Member findByEmailAndPassword(String email, String password) {
         return memberRepository.findByEmailAndPassword(email, password);
     }

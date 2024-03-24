@@ -2,6 +2,7 @@ package com.project.teamttt.api.member.controller;
 
 import com.project.teamttt.api.member.service.MemberService;
 import com.project.teamttt.api.member.dto.MemberRequestDto;
+import com.project.teamttt.api.util.ResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,21 +24,15 @@ public class MemberController {
      */
     @PostMapping(MEMBER_SIGNUP)
     public ResponseEntity<String> saveMember(@RequestBody MemberRequestDto.RequestCreate requestCreate) {
-        boolean isSuccess = memberService.createMember(requestCreate);
-        ResponseEntity<String> response;
-        if (isSuccess) {
-            response = ResponseEntity.ok("SUCCESS SIGNUP");
+        ResponseDto<String> response = memberService.createMember(requestCreate);
+
+        if (response.isSuccess()) {
+            return ResponseEntity.ok(response.getMessage());
         } else {
-            response = ResponseEntity.status(HttpStatus.BAD_REQUEST).body("DUPLICATED EMAIL");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response.getMessage());
         }
-        return response;
     }
 
-    /**
-     *
-     * @param authenticationRequest
-     * @return ResponseEntity<String>
-     */
     @PostMapping(MEMBER_LOGIN)
     public ResponseEntity<String> login(@RequestBody MemberRequestDto.AuthenticationRequest authenticationRequest) {
         ResponseEntity<String> result;
