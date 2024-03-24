@@ -1,4 +1,4 @@
-package com.project.teamttt.util;
+package com.project.teamttt.api.util;
 
 import java.util.Random;
 
