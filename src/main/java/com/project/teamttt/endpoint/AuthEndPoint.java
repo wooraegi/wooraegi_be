@@ -6,6 +6,7 @@ public class AuthEndPoint {
     public static final String KAKAO_CREATE = AUTH_ROOT + "/kakao";
 
     public static final String NAVER_CREATE = AUTH_ROOT + "/naver";
+    public static final String NAVER_CALLBACK = "/auth/naver/callback";
 
     public static final String GOOGLE_CREATE = AUTH_ROOT + "/google";
 

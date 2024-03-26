@@ -2,10 +2,10 @@ package com.project.teamttt.api.auth.google.service;
 
 import com.project.teamttt.api.auth.google.dto.GoogleInfResponseDto;
 import com.project.teamttt.api.auth.google.dto.GoogleRequestDto;
-import com.project.teamttt.api.auth.google.dto.GoogleResponseDto;
+import com.project.teamttt.api.util.AuthTokenDto;
+import com.project.teamttt.api.util.RandomNickName;
 import com.project.teamttt.domain.entity.Member;
 import com.project.teamttt.domain.repository.jpa.MemberRepository;
-import com.project.teamttt.util.RandomNickName;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -49,9 +49,9 @@ public class GoogleAuthService {
                 .code(authCode)
                 .redirectUri("http://localhost:8080/google/oauth2/callback")
                 .grantType("authorization_code").build();
-        ResponseEntity<GoogleResponseDto> resultEntity = restTemplate.postForEntity("https://oauth2.googleapis.com/token",
-                googleOAuthRequestParam, GoogleResponseDto.class);
-        String jwtToken = resultEntity.getBody().getId_token();
+        ResponseEntity<AuthTokenDto.ResponseAuthToken> resultEntity = restTemplate.postForEntity("https://oauth2.googleapis.com/token",
+                googleOAuthRequestParam, AuthTokenDto.ResponseAuthToken.class);
+        String jwtToken = resultEntity.getBody().getJwt_token();
         Map<String, String> map = new HashMap<>();
         map.put("id_token", jwtToken);
         ResponseEntity<GoogleInfResponseDto> resultEntity2 = restTemplate.postForEntity(googleResourceUrl,

@@ -33,6 +33,11 @@ public class MemberController {
         }
     }
 
+    /**
+     *
+     * @param authenticationRequest
+     * @return ResponseEntity<String>
+     */
     @PostMapping(MEMBER_LOGIN)
     public ResponseEntity<String> login(@RequestBody MemberRequestDto.AuthenticationRequest authenticationRequest) {
         ResponseEntity<String> result;
