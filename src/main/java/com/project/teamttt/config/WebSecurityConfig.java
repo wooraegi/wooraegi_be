@@ -12,8 +12,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import static com.project.teamttt.endpoint.AuthEndPoint.MEMBER_LOGIN;
-import static com.project.teamttt.endpoint.AuthEndPoint.MEMBER_SIGNUP;
+import static com.project.teamttt.endpoint.AuthEndPoint.*;
 
 
 @Configuration
@@ -46,7 +45,7 @@ public class WebSecurityConfig {
         http
                 .authorizeHttpRequests(authorizeHttpRequests ->
                         authorizeHttpRequests
-                                .requestMatchers(MEMBER_LOGIN, MEMBER_SIGNUP).permitAll()
+                                .requestMatchers(MEMBER_LOGIN, MEMBER_SIGNUP, NAVER_CREATE, NAVER_CALLBACK).permitAll()
                                 .anyRequest().authenticated()
                 )
                 .formLogin(formLogin ->
