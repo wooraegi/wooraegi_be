@@ -3,6 +3,8 @@ package com.project.teamttt.api.auth.kakao.service;
 import com.project.teamttt.api.auth.kakao.dto.KakaoAuthRequestDto;
 import com.project.teamttt.domain.entity.Member;
 import com.project.teamttt.domain.repository.jpa.MemberRepository;
+import com.project.teamttt.util.RandomNickName;
+import jakarta.transaction.Transactional;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -11,7 +13,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 @Service
 public class KakaoAuthService {
@@ -75,10 +78,10 @@ public class KakaoAuthService {
             throw new Exception("API call failed", e);
         }
 
-        return getUserInfoWithToken(accessToken);
+        return getUserInfoWithToken(accessToken, code);
     }
 
-    private KakaoAuthRequestDto getUserInfoWithToken(String accessToken) throws Exception {
+    public KakaoAuthRequestDto getUserInfoWithToken(String accessToken, String code) throws Exception {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Authorization", "Bearer " + accessToken);
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
@@ -100,32 +103,41 @@ public class KakaoAuthService {
             String email = account.getString("email");
             String nickname = profile.getString("nickname");
 
-            return KakaoAuthRequestDto.builder()
+            if (nickname == null || nickname.isEmpty()) {
+                nickname = RandomNickName.generateRandomNickname();
+            }
+
+
+            // KakaoAuthRequestDto 객체 생성
+            KakaoAuthRequestDto kakaoAuthRequestDto = KakaoAuthRequestDto.builder()
                     .email(email)
                     .nickname(nickname)
                     .build();
+
+            // KakaoAuthRequestDto를 사용하여 회원 생성 및 저장
+            saveMemberFromKakaoInfo(kakaoAuthRequestDto, code);
+
+            return kakaoAuthRequestDto;
         } else {
             throw new Exception("API call returned null response body");
         }
     }
 
     @Transactional
-    public void loginWithKakao(String code) throws Exception {
+    public void saveMemberFromKakaoInfo(KakaoAuthRequestDto kakaoAuthRequestDto, String code) throws Exception {
         try {
-            KakaoAuthRequestDto kakaoAuthRequestDto = getKakaoInfo(code);
+            String email = kakaoAuthRequestDto.getEmail();
+            String nickname = kakaoAuthRequestDto.getNickname();
 
-            // 가져온 이메일과 닉네임으로 Member 엔티티를 생성하여 저장
             Member member = new Member();
-            member.setEmail(kakaoAuthRequestDto.getEmail());
-            member.setNickname(kakaoAuthRequestDto.getNickname());
-            member.setSocial("KAKAO"); // 카카오 소셜 로그인임을 표시
+            member.setEmail(email);
+            member.setNickname(nickname);
+            member.setSocial("KAKAO");
 
             memberRepository.save(member);
         } catch (Exception e) {
-            // 예외 발생 시 로그 출력
             e.printStackTrace();
-            // 예외를 적절히 처리하거나 상위로 전파할 수 있습니다.
-            throw new Exception("Failed to login with Kakao", e);
+            throw new Exception("Failed to save kakao detail", e);
         }
     }
 }

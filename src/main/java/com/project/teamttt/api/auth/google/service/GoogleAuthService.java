@@ -29,7 +29,7 @@ public class GoogleAuthService {
     @Value("${google.client.secret}")
     private String googleClientSecret;
 
-    @Value("${google.client.redirect.uri}")
+    @Value("${google.provider.resource-url}")
     private String googleResourceUrl;
 
     public String getLoginUrl() {
