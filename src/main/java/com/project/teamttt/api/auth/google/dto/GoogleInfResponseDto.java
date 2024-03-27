@@ -1,27 +1,24 @@
 package com.project.teamttt.api.auth.google.dto;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
-@Data
-@NoArgsConstructor
-public class GoogleInfResponseDto {
-    private String iss;
-    private String azp;
-    private String aud;
-    private String sub;
+import lombok.*;
+
+
+@Getter
+@Setter
+@Builder
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
+public class GoogleInfResponseDto{
+
+    /**
+     * 멤버 로그인 종류
+     */
     private String social;
+
+    /**
+     * 멤버 이메일
+     */
     private String email;
-    private String email_verified;
-    private String at_hash;
-    private String name;
-    private String picture;
-    private String given_name;
-    private String family_name;
-    private String locale;
-    private String iat;
-    private String exp;
-    private String alg;
-    private String kid;
-    private String typ;
+
 }

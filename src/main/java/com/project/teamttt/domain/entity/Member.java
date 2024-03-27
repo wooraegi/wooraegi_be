@@ -7,20 +7,21 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.ColumnDefault;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
 
 @Entity
 @Table(name = "Members")
-@NoArgsConstructor(access = AccessLevel.PUBLIC) // public 기본 생성자 추가
-@AllArgsConstructor(access = AccessLevel.PROTECTED) // 다른 생성자를 사용하기 위해 protected all args 생성자 추가
+@NoArgsConstructor(access = AccessLevel.PUBLIC)
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
 @Getter
 @Setter
-
-public class Member extends BaseEntity{
+public class Member extends BaseEntity implements UserDetails{
 
     /**
      * 맴버 아이디 (PK)
@@ -50,4 +51,44 @@ public class Member extends BaseEntity{
      * 소셜 이름
      */
     private String social;
+
+    /**
+     * 권한
+     */
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        Collection<GrantedAuthority> authorities = new ArrayList<>();
+        authorities.add(new SimpleGrantedAuthority(role.toString()));
+        return authorities;
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+
 }

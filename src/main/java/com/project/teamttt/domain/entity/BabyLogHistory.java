@@ -36,7 +36,7 @@ public class BabyLogHistory extends BaseEntity{
     private Date logDate;
 
     /**
-     * babys테이블에 baby_id 컬럼을 참조
+     * babys테이블에 babyId 컬럼을 참조
      */
     @ManyToOne
     @JoinColumn(name = "babyId", referencedColumnName = "babyId")

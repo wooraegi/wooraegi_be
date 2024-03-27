@@ -36,7 +36,7 @@ public class Daily extends BaseEntity{
     private Boolean isPublic;
 
     /**
-     * member 테이블에 member_id 컬럼을 참조
+     * member 테이블에 memberId 컬럼을 참조
      */
     @ManyToOne
     @JoinColumn(name = "memberId", referencedColumnName = "memberId")

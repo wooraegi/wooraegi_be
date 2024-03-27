@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Data
 @Component
-@ConfigurationProperties(prefix = "google.client")
+@ConfigurationProperties(prefix = "spring.security.oauth2.client.registration.google")
 public class GoogleClientConfig {
     private String clientId;
     private String clientSecret;

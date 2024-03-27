@@ -55,7 +55,7 @@ public class Baby extends BaseEntity{
     private Boolean isPublic;
 
     /**
-     * members테이블에 member_id 컬럼을 참조
+     * members테이블에 memberId 컬럼을 참조
      */
     @ManyToOne
     @JoinColumn(name = "memberId", referencedColumnName = "memberId")
