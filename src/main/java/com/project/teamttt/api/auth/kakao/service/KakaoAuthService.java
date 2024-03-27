@@ -3,8 +3,9 @@ package com.project.teamttt.api.auth.kakao.service;
 import com.project.teamttt.api.auth.kakao.dto.KakaoAuthRequestDto;
 import com.project.teamttt.domain.entity.Member;
 import com.project.teamttt.domain.repository.jpa.MemberRepository;
-import com.project.teamttt.util.RandomNickName;
+import com.project.teamttt.api.util.RandomNickName;
 import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -17,15 +18,16 @@ import org.springframework.web.client.RestTemplate;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class KakaoAuthService {
 
-    @Value("${kakao.client.id}")
+    @Value("${spring.security.oauth2.client.registration.kakao.client-id}")
     private String kakaoClientId;
 
-    @Value("${kakao.client.secret}")
+    @Value("${spring.security.oauth2.client.registration.kakao.client-secret}")
     private String kakaoClientSecret;
 
-    @Value("${kakao.redirect.url}")
+    @Value("${spring.security.oauth2.client.registration.kakao.redirect-uri}")
     private String kakaoRedirectUrl;
 
     @Autowired

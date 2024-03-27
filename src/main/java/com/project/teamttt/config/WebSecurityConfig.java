@@ -13,6 +13,8 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import static com.project.teamttt.endpoint.AuthEndPoint.*;
+import static com.project.teamttt.endpoint.GoogleEndPoint.GOOGLE_ROOT;
+import static com.project.teamttt.endpoint.GoogleEndPoint.GOOGLE_USER_CREATE;
 
 
 @Configuration
@@ -45,7 +47,7 @@ public class WebSecurityConfig {
         http
                 .authorizeHttpRequests(authorizeHttpRequests ->
                         authorizeHttpRequests
-                                .requestMatchers(MEMBER_LOGIN, MEMBER_SIGNUP, NAVER_CREATE, NAVER_CALLBACK).permitAll()
+                                .requestMatchers(MEMBER_LOGIN, MEMBER_SIGNUP, NAVER_CREATE, NAVER_CALLBACK, GOOGLE_USER_CREATE, GOOGLE_ROOT).permitAll()
                                 .anyRequest().authenticated()
                 )
                 .formLogin(formLogin ->

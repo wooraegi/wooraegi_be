@@ -30,8 +30,7 @@ public class GoogleAuthService {
     @Value("${spring.security.oauth2.client.registration.google.client-secret}")
     private String googleClientSecret;
 
-    @Value("${spring.security.oauth2.client.registration.google.redirect-uri}")
-
+    @Value("${spring.security.oauth2.client.registration.google.redirect-url}")
     private String googleResourceUrl;
 
 
@@ -51,11 +50,12 @@ public class GoogleAuthService {
                 .grantType("authorization_code").build();
         ResponseEntity<AuthTokenDto.ResponseAuthToken> resultEntity = restTemplate.postForEntity("https://oauth2.googleapis.com/token",
                 googleOAuthRequestParam, AuthTokenDto.ResponseAuthToken.class);
+
         String jwtToken = resultEntity.getBody().getJwt_token();
+        System.out.println("jwtToken::" + jwtToken);
         Map<String, String> map = new HashMap<>();
         map.put("id_token", jwtToken);
-        ResponseEntity<GoogleInfResponseDto> resultEntity2 = restTemplate.postForEntity(googleResourceUrl,
-                map, GoogleInfResponseDto.class);
+        ResponseEntity<GoogleInfResponseDto> resultEntity2 = restTemplate.postForEntity(googleResourceUrl, jwtToken, GoogleInfResponseDto.class);
         String email = resultEntity2.getBody().getEmail();
         String social = "GOOGLE";
         String randomNickname = RandomNickName.generateRandomNickname();
