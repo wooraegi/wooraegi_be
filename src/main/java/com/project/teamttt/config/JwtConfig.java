@@ -54,13 +54,14 @@ public class JwtConfig {
                 .setExpiration(expiry)
                 .claim("email", Base64.getEncoder().encodeToString(member.getEmail().getBytes()))
                 .claim("id", member.getMemberId())
+                .setSubject(member.getEmail())
                 .signWith(getSignKey(jwtSecretKey),SignatureAlgorithm.HS256)
                 .compact();
     }
 
     public boolean validateToken(String token) {
         try {
-            Jwts.parserBuilder().setSigningKey(jwtSecretKey).build().parseClaimsJws(token);
+            Jwts.parserBuilder().setSigningKey(getSignKey(jwtSecretKey)).build().parseClaimsJws(token);
             return true;
         } catch (SecurityException | MalformedJwtException e) {
             logger.error("Invalid JWT signature, 유효하지 않는 JWT 서명 입니다.");
@@ -85,7 +86,7 @@ public class JwtConfig {
 
     private Claims getClaims(String token) {
         return Jwts.parserBuilder()
-                .setSigningKey(jwtSecretKey)
+                .setSigningKey(getSignKey(jwtSecretKey))
                 .build()
                 .parseClaimsJws(token)
                 .getBody();
