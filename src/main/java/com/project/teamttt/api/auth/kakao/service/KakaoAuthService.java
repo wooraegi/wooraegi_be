@@ -1,20 +1,26 @@
 package com.project.teamttt.api.auth.kakao.service;
 
 import com.project.teamttt.api.auth.kakao.dto.KakaoAuthRequestDto;
+import com.project.teamttt.api.member.dto.MemberRequestDto;
+import com.project.teamttt.config.JwtConfig;
 import com.project.teamttt.domain.entity.Member;
-import com.project.teamttt.domain.repository.jpa.MemberRepository;
 import com.project.teamttt.api.util.RandomNickName;
+import com.project.teamttt.domain.service.MemberDomainService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
+import java.time.Duration;
 import java.util.Optional;
 
 @Service
@@ -31,7 +37,9 @@ public class KakaoAuthService {
     private String kakaoRedirectUrl;
 
     @Autowired
-    private MemberRepository memberRepository;
+    private MemberDomainService memberDomainService;
+    @Autowired
+    private JwtConfig jwtConfig;
 
     private final static String KAKAO_AUTH_URI = "https://kauth.kakao.com";
     private final static String KAKAO_API_URI = "https://kapi.kakao.com";
@@ -43,7 +51,7 @@ public class KakaoAuthService {
                 + "&response_type=code";
     }
 
-    public KakaoAuthRequestDto getKakaoInfo(String code) throws Exception {
+    public String getKakaoInfo(String code) throws Exception {
         if (code == null) throw new Exception("Failed to get authorization code");
 
         String accessToken = "";
@@ -63,8 +71,7 @@ public class KakaoAuthService {
             HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(params, headers);
 
             ResponseEntity<String> response = new RestTemplate().postForEntity(
-                    KAKAO_AUTH_URI + "/oauth/token",
-                    request,
+                    KAKAO_AUTH_URI + "/oauth/token", request,
                     String.class
             );
 
@@ -80,10 +87,10 @@ public class KakaoAuthService {
             throw new Exception("API call failed", e);
         }
 
-        return getUserInfoWithToken(accessToken, code);
+        return getUserInfoWithToken(accessToken);
     }
 
-    public KakaoAuthRequestDto getUserInfoWithToken(String accessToken, String code) throws Exception {
+    public String getUserInfoWithToken(String accessToken) throws Exception {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Authorization", "Bearer " + accessToken);
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
@@ -110,36 +117,40 @@ public class KakaoAuthService {
             }
 
 
-            // KakaoAuthRequestDto 객체 생성
             KakaoAuthRequestDto kakaoAuthRequestDto = KakaoAuthRequestDto.builder()
                     .email(email)
                     .nickname(nickname)
                     .build();
 
-            // KakaoAuthRequestDto를 사용하여 회원 생성 및 저장
-            saveMemberFromKakaoInfo(kakaoAuthRequestDto, code);
-
-            return kakaoAuthRequestDto;
+            return saveMemberFromKakaoInfo(kakaoAuthRequestDto);
         } else {
             throw new Exception("API call returned null response body");
         }
     }
 
     @Transactional
-    public void saveMemberFromKakaoInfo(KakaoAuthRequestDto kakaoAuthRequestDto, String code) throws Exception {
-        try {
-            String email = kakaoAuthRequestDto.getEmail();
-            String nickname = kakaoAuthRequestDto.getNickname();
+    public String saveMemberFromKakaoInfo(KakaoAuthRequestDto kakaoAuthRequestDto) throws Exception {
+        String email = kakaoAuthRequestDto.getEmail();
 
-            Member member = new Member();
-            member.setEmail(email);
-            member.setNickname(nickname);
-            member.setSocial("KAKAO");
+        Member memberDetail;
+        Optional<Member> existingMemberOptional = memberDomainService.findByEmail(email);
+        if (existingMemberOptional.isPresent()) {
 
-            memberRepository.save(member);
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new Exception("Failed to save kakao detail", e);
+            memberDetail = existingMemberOptional.get();
+
+        } else {
+            MemberRequestDto.RequestCreate requestCreate = new MemberRequestDto.RequestCreate();
+            requestCreate.setEmail(email);
+            requestCreate.setSocial("KAKAO");
+
+            memberDetail = memberDomainService.save(requestCreate);
+
         }
+        Authentication authentication = new UsernamePasswordAuthenticationToken(memberDetail.getEmail(), memberDetail.getPassword());
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        String accessToken = jwtConfig.generateToken(memberDetail, Duration.ofHours(2));
+        String refreshToken = jwtConfig.createRefreshToken(memberDetail);
+
+        return accessToken;
     }
 }

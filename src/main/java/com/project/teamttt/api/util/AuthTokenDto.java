@@ -43,12 +43,13 @@ public class AuthTokenDto {
         /**
          * jwt 토큰
          */
-        private String jwt_token;
+        private String id_token;
+
 
         public static AuthTokenDto.ResponseAuthToken of(Map<String, String> authTokenMap) {
             return ResponseAuthToken.builder()
                     .access_token(authTokenMap.get("access_token"))
-                    .jwt_token(authTokenMap.get("jwt_token"))
+                    .id_token(authTokenMap.get("jwt_token"))
                     .build();
         }
     }
