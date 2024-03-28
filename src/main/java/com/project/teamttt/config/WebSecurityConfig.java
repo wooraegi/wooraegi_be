@@ -45,7 +45,7 @@ public class WebSecurityConfig {
         http
                 .authorizeHttpRequests(authorizeHttpRequests ->
                         authorizeHttpRequests
-                                .requestMatchers(MEMBER_LOGIN, MEMBER_SIGNUP, NAVER_CREATE, NAVER_CALLBACK).permitAll()
+                                .requestMatchers(MEMBER_LOGIN, MEMBER_SIGNUP, NAVER_CREATE, NAVER_CALLBACK, GOOGLE_USER_CREATE, GOOGLE_ROOT, KAKAO_USER_CREATE).permitAll()
                                 .anyRequest().authenticated()
                 )
                 .formLogin(formLogin ->
