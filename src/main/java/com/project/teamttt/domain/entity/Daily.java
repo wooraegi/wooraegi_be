@@ -6,13 +6,13 @@ import lombok.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "DAILY")
+@Table(name = "Diary")
 @Builder
 @Setter
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class Daily extends BaseEntity{
+public class Diary extends BaseEntity{
     /**
      * 데일리 아이디
      */

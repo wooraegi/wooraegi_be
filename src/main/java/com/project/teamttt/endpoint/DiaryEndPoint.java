@@ -1,6 +1,6 @@
 package com.project.teamttt.endpoint;
 
-public class DailyEndPoint {
+public class DiaryEndPoint {
     public static final String DAILY_ROOT = "/daily";
     public static final String DAILY_CREATE = DAILY_ROOT + "/create";
     public static final String DAILY_MODIFY = DAILY_ROOT + "/modify";

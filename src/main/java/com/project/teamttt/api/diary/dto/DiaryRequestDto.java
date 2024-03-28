@@ -1,19 +1,18 @@
-package com.project.teamttt.api.daily.dto;
+package com.project.teamttt.api.diary.dto;
 
-import com.project.teamttt.domain.entity.Member;
 import jakarta.persistence.*;
 import lombok.*;
 
 
 
-public class DailyRequestDto {
+public class DiaryRequestDto {
     @Getter
     @Setter
     @Builder
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
     @AllArgsConstructor
 
-    public static class DailyCreate {
+    public static class DiaryCreate {
 
         /**
          * 데일리 아이디
