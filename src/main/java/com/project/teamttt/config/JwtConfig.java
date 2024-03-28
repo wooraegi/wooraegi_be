@@ -1,6 +1,7 @@
 package com.project.teamttt.config;
 
 
+import com.project.teamttt.api.member.service.RefreshTokenService;
 import com.project.teamttt.domain.entity.Member;
 import com.project.teamttt.domain.service.MemberDomainService;
 import io.jsonwebtoken.*;
@@ -33,7 +34,7 @@ public class JwtConfig {
 
     @Value("${jwt.secret_key}")
     private String jwtSecretKey;
-
+    private final RefreshTokenService refreshTokenService;
     private final MemberDomainService memberDomainService;
 
     private Key getSignKey(String secretKey){
@@ -98,6 +99,21 @@ public class JwtConfig {
             return bearerToken.substring(7);
         }
         return null;
+    }
+
+    public String createNewAccessToken(String refreshToken) {
+        if(!this.validateToken(refreshToken)) {
+            throw new IllegalArgumentException("Unexpected token");
+        }
+
+        Long memberId = refreshTokenService.findByRefreshToken(refreshToken).getMemberId();
+        Member member = memberDomainService.findByMemberId(memberId);
+
+        return this.generateToken(member, Duration.ofHours(2));
+    }
+
+    public String createRefreshToken(Member member) {
+        return this.generateToken(member, Duration.ofDays(30));
     }
 }
 
