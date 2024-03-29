@@ -8,7 +8,7 @@ import lombok.*;
 @Builder
 @Setter
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor(access = AccessLevel.PUBLIC)
 @AllArgsConstructor
 public class UserAttachFile extends BaseEntity{
     /**
@@ -27,11 +27,6 @@ public class UserAttachFile extends BaseEntity{
      * 사용되는 카테고리 종류 - MY_PROFILE, BABY_PROFILE, DIARY
      */
     private String refType;
-
-    /**
-     * 첨부파일명
-     */
-    private String fileName;
 
     /**
      * 첨부파일 url

@@ -32,8 +32,6 @@ public class QUserAttachFile extends EntityPathBase<UserAttachFile> {
     //inherited
     public final NumberPath<Long> createdBy = _super.createdBy;
 
-    public final StringPath fileName = createString("fileName");
-
     public final StringPath fileUrl = createString("fileUrl");
 
     public final BooleanPath isUsed = createBoolean("isUsed");

@@ -173,7 +173,12 @@ public class BabyRequestDto {
          */
         private Boolean isPublic;
 
-        public static ResponseBaby of(Baby baby) {
+        /**
+         * 반려동물 프로필 사진 url
+         */
+        private String fileUrl;
+
+        public static ResponseBaby of(Baby baby, String fileUrl) {
             return ResponseBaby.builder()
                     .babyId(baby.getBabyId())
                     .babyName(baby.getBabyName())
@@ -183,6 +188,7 @@ public class BabyRequestDto {
                     .nickname(baby.getNickname())
                     .reminder(baby.getReminder())
                     .isPublic(baby.getIsPublic())
+                    .fileUrl(fileUrl)
                     .build();
         }
     }
