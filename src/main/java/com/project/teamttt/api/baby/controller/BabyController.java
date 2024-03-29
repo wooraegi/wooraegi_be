@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -23,11 +24,11 @@ public class BabyController {
 
     /**
      *
-     * @param requestCreate
+     * @param requestCreate, image
      * @return ResponseEntity<String>
      */
     @PostMapping(BABY_CREATE)
-    public ResponseEntity<String> saveBaby(@RequestBody BabyRequestDto.RequestCreate requestCreate) {
+    public ResponseEntity<String> saveBaby(@RequestPart(name="requestCreate") BabyRequestDto.RequestCreate requestCreate, @RequestPart(name="image") List<MultipartFile> image) {
         Long memberId = null;
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && authentication.isAuthenticated()) {
@@ -35,7 +36,9 @@ public class BabyController {
             memberId = member.getMemberId();
         }
         requestCreate.setMemberId(memberId);
-        ResponseDto<String> response = babyService.createBaby(requestCreate);
+        ResponseDto<String> response = babyService.createBaby(requestCreate, image);
+
+
 
         if (response.isSuccess()) {
             return ResponseEntity.ok(response.getMessage());
@@ -46,19 +49,19 @@ public class BabyController {
 
     /**
      *
-     * @param RequestUpdate
+     * @param requestUpdate, image
      * @return ResponseEntity<String>
      */
     @PostMapping(BABY_UPDATE)
-    public ResponseEntity<String> updateBaby(@RequestBody BabyRequestDto.RequestUpdate RequestUpdate) {
+    public ResponseEntity<String> updateBaby(@RequestPart(name="requestUpdate") BabyRequestDto.RequestUpdate requestUpdate, @RequestPart(name="image") List<MultipartFile> image) {
         Long memberId = null;
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && authentication.isAuthenticated()) {
             Member member = (Member) authentication.getPrincipal();
             memberId = member.getMemberId();
         }
-        RequestUpdate.setMemberId(memberId);
-        ResponseDto<String> response = babyService.updateBaby(RequestUpdate);
+        requestUpdate.setMemberId(memberId);
+        ResponseDto<String> response = babyService.updateBaby(requestUpdate, image);
 
         if (response.isSuccess()) {
             return ResponseEntity.ok(response.getMessage());
