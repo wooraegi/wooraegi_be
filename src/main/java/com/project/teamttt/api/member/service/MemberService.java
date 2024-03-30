@@ -46,4 +46,16 @@ public class MemberService {
             return null;
         }
     }
+
+    @Transactional
+    public ResponseDto<String> updateMember(Long memberId, String nickname) {
+        try {
+            Member memberDetail = memberDomainService.findByMemberId(memberId);
+            memberDetail.setNickname(nickname);
+            memberDomainService.save(memberDetail);
+            return new ResponseDto<>(true, "SUCCESS TO UPDATE MEMBER", null);
+        } catch (Exception e) {
+            return new ResponseDto<>(false, "FAILED TO UPDATE MEMBER: " + e.getMessage(), null);
+        }
+    }
 }

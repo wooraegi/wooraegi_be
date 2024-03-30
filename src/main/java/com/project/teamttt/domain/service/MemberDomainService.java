@@ -28,6 +28,20 @@ public class MemberDomainService implements UserDetailsService {
                         .build()
         );
     }
+
+    public Member save(Member member) {
+        return memberRepository.save(
+                Member.builder()
+                        .memberId(member.getMemberId())
+                        .email(member.getEmail())
+                        .password(member.getPassword())
+                        .nickname(member.getNickname())
+                        .social(member.getSocial())
+                        .role(member.getRole())
+                        .build()
+        );
+    }
+
     public Boolean existsByEmail(String email){
         if(memberRepository.existsByEmail(email)){
             return true;
