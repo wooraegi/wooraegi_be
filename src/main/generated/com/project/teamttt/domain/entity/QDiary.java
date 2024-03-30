@@ -11,16 +11,16 @@ import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
- * QDaily is a Querydsl query type for Daily
+ * QDiary is a Querydsl query type for Diary
  */
 @Generated("com.querydsl.codegen.DefaultEntitySerializer")
-public class QDaily extends EntityPathBase<Daily> {
+public class QDiary extends EntityPathBase<Diary> {
 
-    private static final long serialVersionUID = -369194017L;
+    private static final long serialVersionUID = -368963191L;
 
     private static final PathInits INITS = PathInits.DIRECT2;
 
-    public static final QDaily daily = new QDaily("daily");
+    public static final QDiary diary = new QDiary("diary");
 
     public final QBaseEntity _super = new QBaseEntity(this);
 
@@ -32,7 +32,7 @@ public class QDaily extends EntityPathBase<Daily> {
     //inherited
     public final NumberPath<Long> createdBy = _super.createdBy;
 
-    public final NumberPath<Long> dailyId = createNumber("dailyId", Long.class);
+    public final NumberPath<Long> diaryId = createNumber("diaryId", Long.class);
 
     public final BooleanPath isPublic = createBoolean("isPublic");
 
@@ -46,23 +46,23 @@ public class QDaily extends EntityPathBase<Daily> {
     //inherited
     public final NumberPath<Long> updatedBy = _super.updatedBy;
 
-    public QDaily(String variable) {
-        this(Daily.class, forVariable(variable), INITS);
+    public QDiary(String variable) {
+        this(Diary.class, forVariable(variable), INITS);
     }
 
-    public QDaily(Path<? extends Daily> path) {
+    public QDiary(Path<? extends Diary> path) {
         this(path.getType(), path.getMetadata(), PathInits.getFor(path.getMetadata(), INITS));
     }
 
-    public QDaily(PathMetadata metadata) {
+    public QDiary(PathMetadata metadata) {
         this(metadata, PathInits.getFor(metadata, INITS));
     }
 
-    public QDaily(PathMetadata metadata, PathInits inits) {
-        this(Daily.class, metadata, inits);
+    public QDiary(PathMetadata metadata, PathInits inits) {
+        this(Diary.class, metadata, inits);
     }
 
-    public QDaily(Class<? extends Daily> type, PathMetadata metadata, PathInits inits) {
+    public QDiary(Class<? extends Diary> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.member = inits.isInitialized("member") ? new QMember(forProperty("member")) : null;
     }

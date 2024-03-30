@@ -1,40 +1,150 @@
 package com.project.teamttt.api.diary.dto;
 
-import jakarta.persistence.*;
-import lombok.*;
-
+import com.project.teamttt.domain.entity.Diary;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
+import java.time.OffsetDateTime;
 
 
 public class DiaryRequestDto {
     @Getter
     @Setter
     @Builder
-    @NoArgsConstructor(access = AccessLevel.PROTECTED)
     @AllArgsConstructor
+    public static class RequestCreate {
 
-    public static class DiaryCreate {
 
         /**
-         * 데일리 아이디
+         * 해당 다이어리를 작성한 맴버 아이디
          */
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        private Long dailyId;
+        private Long memberId;
 
         /**
-         * 데일리 제목
+         * 다이어리 제목
          */
         private String title;
 
         /**
-         * 데일리 내용
+         * 다이어리 내용
          */
         private String content;
 
         /**
-         * 데일리 공개 여부
+         * 다이어리 공개 여부
          */
         private Boolean isPublic;
 
+        /**
+         * 다이어리 생성일
+         */
+        private OffsetDateTime createdAt;
+
+
+        public RequestCreate() {
+            this.isPublic = true;
+
+        }
+    }
+
+    @Getter
+    @Setter
+    @Builder
+    @AllArgsConstructor
+    public static class RequestUpdate {
+
+
+        /**
+         * 다이어리 아이디
+         */
+        private Long diaryId;
+        /**
+         * 해당 다이어리를 작성한 맴버 아이디
+         */
+        private Long memberId;
+
+        /**
+         * 다이어리 제목
+         */
+        private String title;
+
+        /**
+         * 다이어리 내용
+         */
+        private String content;
+
+        /**
+         * 다이어리 공개 여부
+         */
+        private Boolean isPublic;
+
+        /**
+         * 다이어리 수정일
+         */
+        private OffsetDateTime updatedAt;
+
+
+        public RequestUpdate() {
+            this.isPublic = true;
+
+        }
+    }
+
+    @Getter
+    @Setter
+    @Builder
+    @AllArgsConstructor
+    public static class ResponseDiary {
+
+        /**
+         * 다이어리 아이디
+         */
+        private Long diaryId;
+        /**
+         * 해당 다이어리를 작성한 맴버 아이디
+         */
+        private Long memberId;
+
+        /**
+         * 다이어리 제목
+         */
+        private String title;
+
+        /**
+         * 다이어리 내용
+         */
+        private String content;
+
+        /**
+         * 다이어리 공개 여부
+         */
+        private Boolean isPublic;
+
+        public static ResponseDiary of(Diary diary) {
+            return ResponseDiary.builder()
+                    .diaryId(diary.getDiaryId())
+                    .title(diary.getTitle())
+                    .content(diary.getContent())
+                    .isPublic(diary.getIsPublic())
+                    .build();
+        }
+
+        @Getter
+        @Setter
+        @Builder
+        @AllArgsConstructor
+        public static class RequestGet {
+            /**
+             * 다이어리 아이디
+             */
+            private Long diaryId;
+
+            public static RequestGet of(Long diaryId) {
+                return RequestGet.builder()
+                        .diaryId(diaryId)
+                        .build();
+            }
+        }
     }
 }

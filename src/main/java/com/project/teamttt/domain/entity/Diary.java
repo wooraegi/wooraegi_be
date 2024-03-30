@@ -3,10 +3,8 @@ package com.project.teamttt.domain.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.Date;
-
 @Entity
-@Table(name = "Diary")
+@Table(name = "DIARY")
 @Builder
 @Setter
 @Getter
@@ -14,24 +12,24 @@ import java.util.Date;
 @AllArgsConstructor
 public class Diary extends BaseEntity{
     /**
-     * 데일리 아이디
+     * 다이어리 아이디
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long dailyId;
+    private Long diaryId;
 
     /**
-     * 데일리 제목
+     * 다이어리 제목
      */
     private String title;
 
     /**
-     * 데일리 내용
+     * 다이어리 내용
      */
     private String content;
 
     /**
-     * 데일리 공개 여부
+     * 다이어리 공개 여부
      */
     private Boolean isPublic;
 
