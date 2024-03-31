@@ -29,18 +29,18 @@ public class BabyService {
     private final UserAttachFileRepository userAttachFileRepository;
 
     @Transactional
-    public ResponseDto<String> createBaby(@RequestPart(name="requestCreate") BabyRequestDto.RequestCreate requestCreate, @RequestPart(name="image") List<MultipartFile> image) {
+    public ResponseDto<String> createBaby(BabyRequestDto requestCreateBaby, MultipartFile image) {
         try {
-            Long memberId = requestCreate.getMemberId();
+            Long memberId = requestCreateBaby.getMemberId();
             Member member = memberDomainService.findByMemberId(memberId);
 
-            Baby savedBaby = babyDomainService.save(requestCreate, member);
+            Baby savedBaby = babyDomainService.save(requestCreateBaby, member);
 
             String s3Url ="";
             if(image != null){
-               s3Url = s3ImageService.upload(image.get(0));
+               s3Url = s3ImageService.upload(image);
             }else{
-                s3Url = ""; //반려동물 기본 프로필이미지 s3 업로드 url 넣기
+                s3Url = "https://wooraegi-bucket.s3.ap-northeast-2.amazonaws.com/c0bf5e53-dwooraegi_baby_profile.JPG";
             }
 
             UserAttachFile userAttachFile = new UserAttachFile();
@@ -59,7 +59,7 @@ public class BabyService {
     }
 
     @Transactional
-    public ResponseDto<String> updateBaby(@RequestPart(name="requestUpdate") BabyRequestDto.RequestUpdate requestUpdate, @RequestPart(name="image") List<MultipartFile> image) {
+    public ResponseDto<String> updateBaby(BabyRequestDto.RequestUpdate requestUpdate, MultipartFile image) {
         try {
         Long memberIdByLogin = requestUpdate.getMemberId();
         Member member = memberDomainService.findByMemberId(memberIdByLogin);
@@ -69,30 +69,31 @@ public class BabyService {
 
             if(memberIdByLogin.equals(memberIdByBaby)){
                 Baby savedBaby = babyDomainService.save(requestUpdate, member);
+                if (image != null){
+                    List<UserAttachFile> fileList = babyDomainService.getFileListByRefId(savedBaby.getBabyId().toString());
 
-                List<UserAttachFile> fileList = babyDomainService.getFileListByRefId(savedBaby.getBabyId().toString());
+                    for (UserAttachFile file : fileList) {
+                        UserAttachFile unusedFile = new UserAttachFile();
+                        unusedFile.setAttachFileId(file.getAttachFileId());
+                        unusedFile.setRefId(file.getRefId());
+                        unusedFile.setRefType(file.getRefType());
+                        unusedFile.setFileUrl(file.getFileUrl());
+                        unusedFile.setMember(file.getMember());
+                        unusedFile.setIsUsed(false);
+                        userAttachFileRepository.save(unusedFile);
+                    }
 
-                for (UserAttachFile file : fileList) {
-                    UserAttachFile unusedFile = new UserAttachFile();
-                    unusedFile.setAttachFileId(file.getAttachFileId());
-                    unusedFile.setRefId(file.getRefId());
-                    unusedFile.setRefType(file.getRefType());
-                    unusedFile.setFileUrl(file.getFileUrl());
-                    unusedFile.setMember(file.getMember());
-                    unusedFile.setIsUsed(false);
-                    userAttachFileRepository.save(unusedFile);
+                    String s3Url = s3ImageService.upload(image);
+
+                    UserAttachFile userAttachFile = new UserAttachFile();
+                    userAttachFile.setRefId(savedBaby.getBabyId().toString());
+                    userAttachFile.setRefType("BABY_PROFILE");
+                    userAttachFile.setFileUrl(s3Url);
+                    userAttachFile.setMember(member);
+                    userAttachFile.setIsUsed(true);
+
+                    userAttachFileRepository.save(userAttachFile);
                 }
-
-                String s3Url = s3ImageService.upload(image.get(0));
-
-                UserAttachFile userAttachFile = new UserAttachFile();
-                userAttachFile.setRefId(savedBaby.getBabyId().toString());
-                userAttachFile.setRefType("BABY_PROFILE");
-                userAttachFile.setFileUrl(s3Url);
-                userAttachFile.setMember(member);
-                userAttachFile.setIsUsed(true);
-
-                userAttachFileRepository.save(userAttachFile);
 
                 return new ResponseDto<>(true, "SUCCESS UPDATE BABY", null);
 

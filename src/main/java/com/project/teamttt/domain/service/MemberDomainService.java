@@ -17,7 +17,7 @@ public class MemberDomainService implements UserDetailsService {
 
     private final MemberRepository memberRepository;
 
-    public Member save(MemberRequestDto.RequestCreate requestCreate) {
+    public Member save(MemberRequestDto.RequestCreateMember requestCreate) {
         return memberRepository.save(
                 Member.builder()
                         .email(requestCreate.getEmail())

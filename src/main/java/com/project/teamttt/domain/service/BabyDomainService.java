@@ -19,33 +19,33 @@ public class BabyDomainService {
     private final BabyRepository babyRepository;
     private final UserAttachFileRepository userAttachFileRepository;
 
-    public Baby save(BabyRequestDto.RequestCreate requestCreate, Member member) {
+    public Baby save(BabyRequestDto requestCreateBaby, Member member) {
         return babyRepository.save(
                 Baby.builder()
                         .member(member)
-                        .babyName(requestCreate.getBabyName())
-                        .birth(requestCreate.getBirth())
-                        .sex(requestCreate.getSex())
-                        .animalType(requestCreate.getAnimalType())
-                        .nickname(requestCreate.getNickname())
-                        .reminder(requestCreate.getReminder())
-                        .isPublic(requestCreate.getIsPublic())
+                        .babyName(requestCreateBaby.getBabyName())
+                        .birth(requestCreateBaby.getBirth())
+                        .sex(requestCreateBaby.getSex())
+                        .animalType(requestCreateBaby.getAnimalType())
+                        .nickname(requestCreateBaby.getNickname())
+                        .reminder(requestCreateBaby.getReminder())
+                        .isPublic(requestCreateBaby.getIsPublic())
                         .build()
         );
     }
 
-    public Baby save(BabyRequestDto.RequestUpdate RequestUpdate, Member member) {
+    public Baby save(BabyRequestDto.RequestUpdate requestUpdate, Member member) {
         return babyRepository.save(
                 Baby.builder()
                         .member(member)
-                        .babyId(RequestUpdate.getBabyId())
-                        .babyName(RequestUpdate.getBabyName())
-                        .birth(RequestUpdate.getBirth())
-                        .sex(RequestUpdate.getSex())
-                        .animalType(RequestUpdate.getAnimalType())
-                        .nickname(RequestUpdate.getNickname())
-                        .reminder(RequestUpdate.getReminder())
-                        .isPublic(RequestUpdate.getIsPublic())
+                        .babyId(requestUpdate.getBabyId())
+                        .babyName(requestUpdate.getBabyName())
+                        .birth(requestUpdate.getBirth())
+                        .sex(requestUpdate.getSex())
+                        .animalType(requestUpdate.getAnimalType())
+                        .nickname(requestUpdate.getNickname())
+                        .reminder(requestUpdate.getReminder())
+                        .isPublic(requestUpdate.getIsPublic())
                         .build()
         );
     }

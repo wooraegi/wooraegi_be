@@ -8,12 +8,11 @@ import lombok.Setter;
 
 import java.time.OffsetDateTime;
 
+@Getter
+@Setter
+@Builder
+@AllArgsConstructor
 public class BabyRequestDto {
-    @Getter
-    @Setter
-    @Builder
-    @AllArgsConstructor
-    public static class RequestCreate {
 
         /**
          * 반려동물 이름
@@ -60,10 +59,10 @@ public class BabyRequestDto {
          */
         private Long memberId;
 
-        public RequestCreate() {
+        public BabyRequestDto() {
             this.isPublic = true;
         }
-    }
+
 
     @Getter
     @Setter

@@ -91,7 +91,7 @@ public class GoogleAuthService {
             memberDetail = existingMemberOptional.get();
 
         } else {
-            MemberRequestDto.RequestCreate requestCreate = new MemberRequestDto.RequestCreate();
+            MemberRequestDto.RequestCreateMember requestCreate = new MemberRequestDto.RequestCreateMember();
             requestCreate.setEmail(resultEntity2.getBody().getEmail());
             requestCreate.setSocial("GOOGLE");
 

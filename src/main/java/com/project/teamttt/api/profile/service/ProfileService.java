@@ -27,10 +27,10 @@ public class ProfileService {
 
             ProfileRequestDto.ResponseDetail profileDetail = ProfileRequestDto.ResponseDetail.of(babyDetailList, memberDetail);
 
-            return new ResponseDto<>(true, "SUCCESS GET BABYLIST", profileDetail);
+            return new ResponseDto<>(true, "SUCCESS GET PROFILE", profileDetail);
 
         } catch (Exception e) {
-            return new ResponseDto<>(false, "FAILED TO GET BABYLIST: " + e.getMessage(), null);
+            return new ResponseDto<>(false, "FAILED TO GET PROFILE: " + e.getMessage(), null);
         }
     }
 
