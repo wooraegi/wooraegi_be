@@ -1,9 +1,8 @@
 package com.project.teamttt.endpoint;
 
 public class DailyEndPoint {
-    public static final String DAILY_ROOT = "/daily";
-    public static final String DAILY_CREATE = DAILY_ROOT + "/create";
-    public static final String DAILY_MODIFY = DAILY_ROOT + "/modify";
-    public static final String DAILY_DELETE = DAILY_ROOT + "/delete";
-    public static final String DAILY_LIST = DAILY_ROOT + "/list";
+    public static final String DAILY_CREATE = "/daily/create";
+    public static final String DAILY_MODIFY = "/daily/modify";
+    public static final String DAILY_DELETE = "/daily/delete";
+    public static final String DAILY_LIST = "/daily/list";
 }

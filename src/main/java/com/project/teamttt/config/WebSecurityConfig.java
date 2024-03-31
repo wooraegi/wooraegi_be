@@ -40,12 +40,29 @@ public class WebSecurityConfig {
         return new JwtAuthorizationFilter(jwtConfig);
     }
 
+    public static final String[] swaggerArray = {
+            "/api-docs",
+            "/swagger-ui-wooraegi.html",
+            "/v3/api-docs/**",
+            "/swagger-ui/**",
+            "/api-docs/**",
+            "/swagger-ui.html",
+            "/swagger-wooraegi-ui.html",
+            MEMBER_LOGIN,
+            MEMBER_SIGNUP,
+            NAVER_CREATE_URI,
+            NAVER_CALLBACK,
+            GOOGLE_CALLBACK,
+            GOOGLE_CREATE_URI,
+            KAKAO_CALLBACK
+    };
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(authorizeHttpRequests ->
                         authorizeHttpRequests
-                                .requestMatchers(MEMBER_LOGIN, MEMBER_SIGNUP, NAVER_CREATE, NAVER_CALLBACK, GOOGLE_USER_CREATE, GOOGLE_ROOT, KAKAO_USER_CREATE).permitAll()
+                                .requestMatchers(swaggerArray).permitAll()
                                 .anyRequest().authenticated()
                 )
                 .formLogin(formLogin ->

@@ -12,7 +12,7 @@ public class MemberRequestDto {
     @Setter
     @Builder
     @AllArgsConstructor
-    public static class RequestCreate {
+    public static class RequestCreateMember {
 
         /**
          * 멤버 이메일
@@ -44,7 +44,7 @@ public class MemberRequestDto {
          */
         private OffsetDateTime createdAt;
 
-        public RequestCreate() {
+        public RequestCreateMember() {
             this.role = Role.ROLE_USER;
             this.nickname = RandomNickName.generateRandomNickname();
             this.social = "MEMBER";
