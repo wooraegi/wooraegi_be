@@ -5,12 +5,15 @@ import com.project.teamttt.api.diary.dto.DiaryRequestDto;
 import com.project.teamttt.api.diary.service.DiaryService;
 import com.project.teamttt.api.util.ResponseDto;
 import com.project.teamttt.domain.entity.Member;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -26,8 +29,8 @@ public class DiaryController {
      * @param requestCreate
      * @return ResponseEntity<String>
      */
-    @PostMapping(DIALY_CREATE)
-    public ResponseEntity<String> saveDiary(@RequestBody DiaryRequestDto.RequestCreate requestCreate) {
+    @PostMapping(value = DIALY_CREATE, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<String> saveDiary(@RequestPart @Valid DiaryRequestDto.RequestCreate requestCreate, @RequestPart(value = "imageFileList", required = false) List<MultipartFile> imageFileList) {
         Long memberId = null;
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && authentication.isAuthenticated()) {
@@ -35,7 +38,7 @@ public class DiaryController {
             memberId = member.getMemberId();
         }
         requestCreate.setMemberId(memberId);
-        ResponseDto<String> response = diaryService.createDiary(requestCreate);
+        ResponseDto<String> response = diaryService.createDiary(requestCreate, imageFileList);
 
         if (response.isSuccess()) {
             return ResponseEntity.ok(response.getMessage());
@@ -45,19 +48,19 @@ public class DiaryController {
     }
 
     /**
-     * @param RequestUpdate
+     * @param requestUpdate
      * @return ResponseEntity<String>
      */
     @PostMapping(DIALY_UPDATE)
-    public ResponseEntity<String> updateDiary(@RequestBody DiaryRequestDto.RequestUpdate RequestUpdate) {
+    public ResponseEntity<String> updateDiary(@RequestPart @Valid DiaryRequestDto.RequestUpdate requestUpdate, @RequestPart(value = "imageFileList", required = false) List<MultipartFile> imageFileList) {
         Long memberId = null;
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && authentication.isAuthenticated()) {
             Member member = (Member) authentication.getPrincipal();
             memberId = member.getMemberId();
         }
-        RequestUpdate.setMemberId(memberId);
-        ResponseDto<String> response = diaryService.updateDiary(RequestUpdate);
+        requestUpdate.setMemberId(memberId);
+        ResponseDto<String> response = diaryService.updateDiary(requestUpdate, imageFileList);
 
         if (response.isSuccess()) {
             return ResponseEntity.ok(response.getMessage());
@@ -110,8 +113,8 @@ public class DiaryController {
         }
     }
     @GetMapping(DIARY_GET_BY_ID)
-    public ResponseEntity<ResponseDto<DiaryRequestDto.ResponseDiary>> getDiaryById(@RequestParam Long diaryId) {
-        ResponseDto<DiaryRequestDto.ResponseDiary> response = diaryService.getDiaryById(diaryId);
+    public ResponseEntity<ResponseDto<DiaryRequestDto.ResponseDiaryDetail>> getDiaryById(@RequestParam Long diaryId) {
+        ResponseDto<DiaryRequestDto.ResponseDiaryDetail> response = diaryService.getDiaryById(diaryId);
 
         if (response.isSuccess()) {
             return ResponseEntity.ok(response);

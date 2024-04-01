@@ -141,7 +141,7 @@ public class BabyService {
                         .collect(Collectors.toList());
 
                 for (ResponseBaby baby : babyList) {
-                UserAttachFile file = babyDomainService.findByRefIdAndIsUsedTrue(baby.getBabyId().toString());
+                UserAttachFile file = babyDomainService.findByRefIdAndIsUsedTrue(baby.getBabyId().toString()).get(0);
                 baby.setFileUrl(file.getFileUrl());
                 }
 
