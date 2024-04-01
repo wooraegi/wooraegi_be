@@ -139,7 +139,7 @@ public class KakaoAuthService {
             memberDetail = existingMemberOptional.get();
 
         } else {
-            MemberRequestDto.RequestCreate requestCreate = new MemberRequestDto.RequestCreate();
+            MemberRequestDto.RequestCreateMember requestCreate = new MemberRequestDto.RequestCreateMember();
             requestCreate.setEmail(email);
             requestCreate.setSocial("KAKAO");
 

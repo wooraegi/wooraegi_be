@@ -23,7 +23,7 @@ public class MemberService {
 
 
     @Transactional
-    public ResponseDto<String>  createMember(MemberRequestDto.RequestCreate requestCreate) {
+    public ResponseDto<String>  createMember(MemberRequestDto.RequestCreateMember requestCreate) {
         if (memberDomainService.existsByEmail(requestCreate.getEmail())) {
             return new ResponseDto<>(false, "DUPLICATED EMAIL", null);
         }
