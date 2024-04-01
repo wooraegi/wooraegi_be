@@ -50,9 +50,9 @@ import java.util.List;
             return false;
         }
 
-        public List<Diary> getDiaryListByMemberId(Long memberId)
+        public List<Diary> getDiaryListByMemberId(Member member)
         {
-            return diaryRepository.findByMemberId(memberId);
+            return diaryRepository.findByMember(member);
         }
     }
 

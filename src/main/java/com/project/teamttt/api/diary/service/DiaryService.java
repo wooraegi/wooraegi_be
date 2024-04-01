@@ -78,7 +78,8 @@ public class DiaryService {
     @Transactional(readOnly = true)
     public ResponseDto<List<DiaryRequestDto.ResponseDiary>> getDiaryList(Long memberId) {
         try {
-            List<DiaryRequestDto.ResponseDiary> diaryList = diaryDomainService.getDiaryListByMemberId(memberId)
+            Member member = memberDomainService.findByMemberId(memberId);
+            List<DiaryRequestDto.ResponseDiary> diaryList = diaryDomainService.getDiaryListByMemberId(member)
                     .stream()
                     .map(DiaryRequestDto.ResponseDiary::of)
                     .collect(Collectors.toList());
@@ -93,15 +94,10 @@ public class DiaryService {
     @Transactional(readOnly = true)
     public ResponseDto<DiaryRequestDto.ResponseDiary> getDiaryById(Long diaryId) {
         try {
-            // 특정 다이어리 아이디로 다이어리를 조회
             Diary diary = diaryDomainService.findByDiaryId(diaryId);
-            // 다이어리가 존재하지 않는 경우 에러 응답 반환
-            if (diary == null) {
-                return new ResponseDto<>(false, "Diary not found for id: " + diaryId, null);
-            }
-            // 다이어리를 ResponseDto로 변환하여 반환
+
             DiaryRequestDto.ResponseDiary responseDiary = DiaryRequestDto.ResponseDiary.of(diary);
-            responseDiary.setMemberId(diary.getMember().getMemberId());
+
             return new ResponseDto<>(true, "SUCCESS GET DIARY", responseDiary);
         } catch (Exception e) {
             return new ResponseDto<>(false, "FAILED TO GET DIARY: " + e.getMessage(), null);

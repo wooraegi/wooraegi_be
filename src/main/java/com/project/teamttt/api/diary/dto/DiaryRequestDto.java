@@ -127,6 +127,7 @@ public class DiaryRequestDto {
                     .title(diary.getTitle())
                     .content(diary.getContent())
                     .isPublic(diary.getIsPublic())
+                    .memberId(diary.getMember().getMemberId())
                     .build();
         }
 
