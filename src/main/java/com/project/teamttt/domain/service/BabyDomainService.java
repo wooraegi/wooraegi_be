@@ -65,11 +65,11 @@ public class BabyDomainService {
         return babyRepository.findByMember(member);
     }
 
-    public UserAttachFile findByRefIdAndIsUsedTrue(String refId) {
+    public List<UserAttachFile> findByRefIdAndIsUsedTrue(Long refId) {
         return userAttachFileRepository.findByRefIdAndIsUsedTrue(refId);
     }
 
-    public List<UserAttachFile> getFileListByRefId(String refId) {
+    public List<UserAttachFile> getFileListByRefId(Long refId) {
         return userAttachFileRepository.findByRefId(refId);
     }
 

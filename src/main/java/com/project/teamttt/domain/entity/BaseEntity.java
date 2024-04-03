@@ -11,6 +11,7 @@ import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 
 @Getter
@@ -22,21 +23,16 @@ import java.time.OffsetDateTime;
 public abstract class BaseEntity {
     @CreatedDate
     @Column(updatable = false)
-    protected OffsetDateTime createdAt;
+    protected LocalDateTime createdAt;
 
     @CreatedBy
     @Column(updatable = false)
     protected Long createdBy;
 
     @LastModifiedDate
-    protected OffsetDateTime updatedAt;
+    protected LocalDateTime updatedAt;
 
     @LastModifiedBy
     protected Long updatedBy;
-
-    @PrePersist
-    public void prePersist() {
-        this.createdAt = OffsetDateTime.now();
-    }
 
 }

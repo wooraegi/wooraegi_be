@@ -44,7 +44,7 @@ public class BabyService {
             }
 
             UserAttachFile userAttachFile = new UserAttachFile();
-            userAttachFile.setRefId(savedBaby.getBabyId().toString());
+            userAttachFile.setRefId(savedBaby.getBabyId());
             userAttachFile.setRefType("BABY_PROFILE");
             userAttachFile.setFileUrl(s3Url);
             userAttachFile.setMember(member);
@@ -70,7 +70,7 @@ public class BabyService {
             if(memberIdByLogin.equals(memberIdByBaby)){
                 Baby savedBaby = babyDomainService.save(requestUpdate, member);
                 if (image != null){
-                    List<UserAttachFile> fileList = babyDomainService.getFileListByRefId(savedBaby.getBabyId().toString());
+                    List<UserAttachFile> fileList = babyDomainService.getFileListByRefId(savedBaby.getBabyId());
 
                     for (UserAttachFile file : fileList) {
                         UserAttachFile unusedFile = new UserAttachFile();
@@ -86,7 +86,7 @@ public class BabyService {
                     String s3Url = s3ImageService.upload(image);
 
                     UserAttachFile userAttachFile = new UserAttachFile();
-                    userAttachFile.setRefId(savedBaby.getBabyId().toString());
+                    userAttachFile.setRefId(savedBaby.getBabyId());
                     userAttachFile.setRefType("BABY_PROFILE");
                     userAttachFile.setFileUrl(s3Url);
                     userAttachFile.setMember(member);
@@ -113,7 +113,7 @@ public class BabyService {
             Long memberIdByBaby = baby.getMember().getMemberId();
 
             if(memberId.equals(memberIdByBaby)){
-                List<UserAttachFile> fileList = babyDomainService.getFileListByRefId(babyId.toString());
+                List<UserAttachFile> fileList = babyDomainService.getFileListByRefId(babyId);
 
                 for (UserAttachFile file : fileList) {
                     s3ImageService.deleteImageFromS3(file.getFileUrl());
@@ -141,7 +141,7 @@ public class BabyService {
                         .collect(Collectors.toList());
 
                 for (ResponseBaby baby : babyList) {
-                UserAttachFile file = babyDomainService.findByRefIdAndIsUsedTrue(baby.getBabyId().toString());
+                UserAttachFile file = babyDomainService.findByRefIdAndIsUsedTrue(baby.getBabyId()).get(0);
                 baby.setFileUrl(file.getFileUrl());
                 }
 

@@ -3,7 +3,9 @@ package com.project.teamttt.domain.service;
 import com.project.teamttt.api.diary.dto.DiaryRequestDto;
 import com.project.teamttt.domain.entity.Diary;
 import com.project.teamttt.domain.entity.Member;
+import com.project.teamttt.domain.entity.UserAttachFile;
 import com.project.teamttt.domain.repository.jpa.DiaryRepository;
+import com.project.teamttt.domain.repository.jpa.UserAttachFileRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -16,6 +18,7 @@ import java.util.List;
     @RequiredArgsConstructor
     public class DiaryDomainService {
         private final DiaryRepository diaryRepository;
+        private final UserAttachFileRepository userAttachFileRepository;
 
         public Diary save(DiaryRequestDto.RequestCreate requestCreate, Member member) {
             return diaryRepository.save(
@@ -50,9 +53,18 @@ import java.util.List;
             return false;
         }
 
+        public List<UserAttachFile> getFileListByRefId(Long refId) {
+            return userAttachFileRepository.findByRefId(refId);
+        }
+
+
         public List<Diary> getDiaryListByMemberId(Member member)
         {
             return diaryRepository.findByMember(member);
+        }
+
+        public List<UserAttachFile> getFileListByRefIdAndIsUsedTrue(Long refId) {
+            return userAttachFileRepository.findByRefIdAndIsUsedTrue(refId);
         }
     }
 
