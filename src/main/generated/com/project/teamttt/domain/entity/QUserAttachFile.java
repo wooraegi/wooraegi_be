@@ -27,7 +27,7 @@ public class QUserAttachFile extends EntityPathBase<UserAttachFile> {
     public final NumberPath<Long> attachFileId = createNumber("attachFileId", Long.class);
 
     //inherited
-    public final DateTimePath<java.time.OffsetDateTime> createdAt = _super.createdAt;
+    public final DateTimePath<java.time.LocalDateTime> createdAt = _super.createdAt;
 
     //inherited
     public final NumberPath<Long> createdBy = _super.createdBy;
@@ -38,12 +38,12 @@ public class QUserAttachFile extends EntityPathBase<UserAttachFile> {
 
     public final QMember member;
 
-    public final StringPath refId = createString("refId");
+    public final NumberPath<Long> refId = createNumber("refId", Long.class);
 
     public final StringPath refType = createString("refType");
 
     //inherited
-    public final DateTimePath<java.time.OffsetDateTime> updatedAt = _super.updatedAt;
+    public final DateTimePath<java.time.LocalDateTime> updatedAt = _super.updatedAt;
 
     //inherited
     public final NumberPath<Long> updatedBy = _super.updatedBy;

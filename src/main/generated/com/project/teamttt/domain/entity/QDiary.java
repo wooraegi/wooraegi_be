@@ -27,7 +27,7 @@ public class QDiary extends EntityPathBase<Diary> {
     public final StringPath content = createString("content");
 
     //inherited
-    public final DateTimePath<java.time.OffsetDateTime> createdAt = _super.createdAt;
+    public final DateTimePath<java.time.LocalDateTime> createdAt = _super.createdAt;
 
     //inherited
     public final NumberPath<Long> createdBy = _super.createdBy;
@@ -41,7 +41,7 @@ public class QDiary extends EntityPathBase<Diary> {
     public final StringPath title = createString("title");
 
     //inherited
-    public final DateTimePath<java.time.OffsetDateTime> updatedAt = _super.updatedAt;
+    public final DateTimePath<java.time.LocalDateTime> updatedAt = _super.updatedAt;
 
     //inherited
     public final NumberPath<Long> updatedBy = _super.updatedBy;

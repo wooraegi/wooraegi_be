@@ -53,7 +53,7 @@ import java.util.List;
             return false;
         }
 
-        public List<UserAttachFile> getFileListByRefId(String refId) {
+        public List<UserAttachFile> getFileListByRefId(Long refId) {
             return userAttachFileRepository.findByRefId(refId);
         }
 
@@ -63,7 +63,7 @@ import java.util.List;
             return diaryRepository.findByMember(member);
         }
 
-        public List<UserAttachFile> getFileListByRefIdAndIsUsedTrue(String refId) {
+        public List<UserAttachFile> getFileListByRefIdAndIsUsedTrue(Long refId) {
             return userAttachFileRepository.findByRefIdAndIsUsedTrue(refId);
         }
     }
