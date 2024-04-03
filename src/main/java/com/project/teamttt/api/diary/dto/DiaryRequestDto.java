@@ -37,12 +37,6 @@ public class DiaryRequestDto {
          */
         private Boolean isPublic;
 
-        /**
-         * 다이어리 생성일
-         */
-        private OffsetDateTime createdAt;
-
-
         public RequestCreate() {
             this.isPublic = true;
 

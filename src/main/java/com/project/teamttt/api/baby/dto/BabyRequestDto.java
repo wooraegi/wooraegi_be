@@ -50,11 +50,6 @@ public class BabyRequestDto {
         private Boolean isPublic;
 
         /**
-         * 반려동물 생성일
-         */
-        private OffsetDateTime createdAt;
-
-        /**
          * 해당 반려동물을 등록한 멤버 아이디
          */
         private Long memberId;

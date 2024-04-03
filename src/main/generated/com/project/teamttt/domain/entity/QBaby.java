@@ -33,7 +33,7 @@ public class QBaby extends EntityPathBase<Baby> {
     public final StringPath birth = createString("birth");
 
     //inherited
-    public final DateTimePath<java.time.OffsetDateTime> createdAt = _super.createdAt;
+    public final DateTimePath<java.time.LocalDateTime> createdAt = _super.createdAt;
 
     //inherited
     public final NumberPath<Long> createdBy = _super.createdBy;
@@ -49,7 +49,7 @@ public class QBaby extends EntityPathBase<Baby> {
     public final StringPath sex = createString("sex");
 
     //inherited
-    public final DateTimePath<java.time.OffsetDateTime> updatedAt = _super.updatedAt;
+    public final DateTimePath<java.time.LocalDateTime> updatedAt = _super.updatedAt;
 
     //inherited
     public final NumberPath<Long> updatedBy = _super.updatedBy;
