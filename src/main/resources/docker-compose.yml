@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  postgres:
+    image: changhyun92/postgres
+    container_name: wrg_db
+    environment:
+      POSTGRES_USER: kch
+      POSTGRES_PASSWORD: 'rlackdgus123'
+      POSTGRES_DB: wooreagi
+      PGDATA: '/var/lib/postgresql/data/db-files'
+    ports:
+      - "172.30.27.126:5432:5432"
+    volumes:
+      - /Users/kimchanghyeon/docker:/var/lib/postgresql/data
+
+  wooraegi_server:
+    image: changhyun92/wrg_server:1
+    container_name: whatwhat
+    ports:
+      - "172.30.27.126:8080:8080"

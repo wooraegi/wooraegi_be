@@ -122,3 +122,7 @@ hibernate {
 		enableAssociationManagement = true
 	}
 }
+
+jar {
+	enabled = false
+}
