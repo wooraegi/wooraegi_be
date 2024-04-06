@@ -54,7 +54,8 @@ public class WebSecurityConfig {
             NAVER_CALLBACK,
             GOOGLE_CALLBACK,
             GOOGLE_CREATE_URI,
-            KAKAO_CALLBACK
+            KAKAO_CALLBACK,
+            MEMBER_FIND_PASSWORD
     };
 
     @Bean

@@ -25,7 +25,7 @@ import static com.project.teamttt.endpoint.ProfileEndPoint.PROFILE_UPDATE;
 
 @RestController
 @RequiredArgsConstructor
-@Tag(name = "PROFILE API", description = "멤버 프로필 관련 api입니다.")
+@Tag(name = "6. PROFILE API", description = "멤버 프로필 관련 api입니다.")
 public class ProfileController {
 
     private final ProfileService profileService;

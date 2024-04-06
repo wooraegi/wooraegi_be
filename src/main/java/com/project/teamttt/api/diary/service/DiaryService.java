@@ -44,7 +44,7 @@ public class DiaryService {
                     s3Url = "https://wooraegi-bucket.s3.ap-northeast-2.amazonaws.com/c0bf5e53-dwooraegi_baby_profile.JPG";
                 }
                 UserAttachFile userAttachFile = new UserAttachFile();
-                userAttachFile.setRefId(diary.getDiaryId().toString());
+                userAttachFile.setRefId(diary.getDiaryId());
                 userAttachFile.setRefType("MEMBER_DIARY");
                 userAttachFile.setFileUrl(s3Url);
                 userAttachFile.setMember(member);
@@ -72,7 +72,7 @@ public class DiaryService {
 
                 diaryDomainService.save(requestUpdate, member);
 
-                List<UserAttachFile> fileList = diaryDomainService.getFileListByRefId(diary.getDiaryId().toString());
+                List<UserAttachFile> fileList = diaryDomainService.getFileListByRefId(diary.getDiaryId());
 
                 for (UserAttachFile file : fileList) {
                     UserAttachFile unusedFile = new UserAttachFile();
@@ -92,7 +92,7 @@ public class DiaryService {
                         String s3Url = s3ImageService.upload(imageFile);
 
                         UserAttachFile userAttachFile = new UserAttachFile();
-                        userAttachFile.setRefId(diary.getDiaryId().toString());
+                        userAttachFile.setRefId(diary.getDiaryId());
                         userAttachFile.setRefType("MEMBER_DIARY");
                         userAttachFile.setFileUrl(s3Url);
                         userAttachFile.setMember(member);
@@ -117,7 +117,7 @@ public class DiaryService {
 
             Diary diary = diaryDomainService.findByDiaryId(diaryId);
             Long memberIdByDiary = diary.getMember().getMemberId();
-            List<UserAttachFile> fileList = diaryDomainService.getFileListByRefId(diary.getDiaryId().toString());
+            List<UserAttachFile> fileList = diaryDomainService.getFileListByRefId(diary.getDiaryId());
 
             if(memberId.equals(memberIdByDiary)){
 
@@ -157,7 +157,7 @@ public class DiaryService {
     public ResponseDto<DiaryRequestDto.ResponseDiaryDetail> getDiaryById(Long diaryId) {
         try {
             Diary diary = diaryDomainService.findByDiaryId(diaryId);
-            List<UserAttachFile> fileList = diaryDomainService.getFileListByRefIdAndIsUsedTrue(diary.getDiaryId().toString());
+            List<UserAttachFile> fileList = diaryDomainService.getFileListByRefIdAndIsUsedTrue(diary.getDiaryId());
             List<String> fileUrlList = new ArrayList<>();
             for(UserAttachFile usedFile : fileList){
                 fileUrlList.add(usedFile.getFileUrl());

@@ -38,4 +38,8 @@ out/
 
 *.properties
 
+# yml
 src/main/resources/application.yml
+
+# Dockerfile
+Dockerfile

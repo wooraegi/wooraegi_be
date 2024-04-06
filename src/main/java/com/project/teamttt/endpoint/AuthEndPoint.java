@@ -11,5 +11,8 @@ public class AuthEndPoint {
 
     public static final String MEMBER_SIGNUP = "/auth/member/signup";
     public static final String MEMBER_LOGIN = "/auth/member/login";
+    public static final String MEMBER_FIND_PASSWORD = "/auth/member/findPassword";
+
+    public static final String MEMBER_UPDATE_PASSWORD = "/auth/member/updatePassword";
 
 }

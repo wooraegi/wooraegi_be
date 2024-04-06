@@ -115,6 +115,15 @@ public class JwtConfig {
     public String createRefreshToken(Member member) {
         return this.generateToken(member, Duration.ofDays(30));
     }
+
+    public String getEmailFromToken(String token) {
+        Claims claims = Jwts.parserBuilder()
+                .setSigningKey(getSignKey(jwtSecretKey))
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
+        return (String) claims.get("email");
+    }
 }
 
 
