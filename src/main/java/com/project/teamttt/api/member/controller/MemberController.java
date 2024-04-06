@@ -3,6 +3,7 @@ package com.project.teamttt.api.member.controller;
 import com.project.teamttt.api.member.service.MemberService;
 import com.project.teamttt.api.member.dto.MemberRequestDto;
 import com.project.teamttt.api.util.ResponseDto;
+import com.project.teamttt.domain.entity.Member;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
@@ -13,15 +14,18 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import static com.project.teamttt.endpoint.AuthEndPoint.*;
 
 @RestController
 @RequiredArgsConstructor
-@Tag(name = "MEMBER API", description = "기본 로그인/회원가입 관련 api입니다.")
+@Tag(name = "1.MEMBER API", description = "기본 로그인/회원가입 관련 api입니다.")
 public class MemberController {
     private final MemberService memberService;
 
@@ -80,4 +84,52 @@ public class MemberController {
         return result;
     }
 
+    /**
+     * @param email
+     * @return ResponseEntity<String>
+     */
+    @Operation(summary = "비밀번호 찾기",
+            description = "임시 비밀번호 메일링"
+    )
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "임시 비밀번호 메일링에 성공했습니다.", content = @Content(mediaType = "text/plain")),
+            @ApiResponse(responseCode = "400", description = "임시 비밀번호 메일링에 실패했습니다.", content = @Content(mediaType = "text/plain"))
+    })
+    @PostMapping(MEMBER_FIND_PASSWORD)
+    public ResponseEntity<String> findPasswordByEmail(@RequestParam String email) throws Exception {
+        ResponseDto<String> response = memberService.resetPassword(email);
+        if (response.isSuccess()) {
+            return ResponseEntity.ok(response.getMessage());
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response.getMessage());
+        }
+    }
+
+    /**
+     * @param token, newPassword
+     * @return ResponseEntity<String>
+     */
+    @Operation(summary = "비밀번호 수정",
+            description = "새로운 비밀번호 저장"
+    )
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "비밀번호 변경에 성공했습니다.", content = @Content(mediaType = "text/plain")),
+            @ApiResponse(responseCode = "400", description = "비밀번호 변경에 실패했습니다.", content = @Content(mediaType = "text/plain"))
+    })
+    @PostMapping(MEMBER_UPDATE_PASSWORD)
+    public ResponseEntity<String> updatePassword(@RequestParam String token, @RequestParam String newPassword) {
+        Long memberId = null;
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.isAuthenticated()) {
+            Member member = (Member) authentication.getPrincipal();
+            memberId = member.getMemberId();
+        }
+
+        ResponseDto<String> response = memberService.completePasswordReset(memberId, newPassword);
+        if (response.isSuccess()) {
+            return ResponseEntity.ok(response.getMessage());
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response.getMessage());
+        }
+    }
 }

@@ -39,16 +39,12 @@ public class MemberRequestDto {
          */
         private Role role;
 
-        /**
-         * 멤버 생성일
-         */
-        private OffsetDateTime createdAt;
-
         public RequestCreateMember() {
             this.role = Role.ROLE_USER;
             this.nickname = RandomNickName.generateRandomNickname();
             this.social = "MEMBER";
         }
+
     }
 
     @Getter

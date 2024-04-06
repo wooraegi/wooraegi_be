@@ -15,7 +15,7 @@ import static com.project.teamttt.endpoint.AuthEndPoint.KAKAO_CALLBACK;
 
 @RestController
 @RequiredArgsConstructor
-@Tag(name = "KAKAO API", description = "카카오 로그인 관련 api입니다.")
+@Tag(name = "2.KAKAO API", description = "카카오 로그인 관련 api입니다.")
 public class KakaoAuthController {
 
     private final KakaoAuthService kakaoAuthService;

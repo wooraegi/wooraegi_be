@@ -5,6 +5,7 @@ import com.project.teamttt.api.diary.dto.DiaryRequestDto;
 import com.project.teamttt.api.diary.service.DiaryService;
 import com.project.teamttt.api.util.ResponseDto;
 import com.project.teamttt.domain.entity.Member;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -21,6 +22,7 @@ import static com.project.teamttt.endpoint.DiaryEndPoint.*;
 
 @RestController
 @RequiredArgsConstructor
+@Tag(name = "4. DIARY API", description = "반려동물 다이어리 관련 api입니다.")
 public class DiaryController {
 
     private final DiaryService diaryService;

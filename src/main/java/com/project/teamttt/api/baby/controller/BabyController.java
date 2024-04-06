@@ -29,7 +29,7 @@ import static com.project.teamttt.endpoint.BabyEndPoint.*;
 
 @RestController
 @RequiredArgsConstructor
-@Tag(name = "BABY API", description = "반려동물 관련 api입니다.")
+@Tag(name = "3.BABY API", description = "반려동물 관련 api입니다.")
 public class BabyController {
 
     private final BabyService babyService;
