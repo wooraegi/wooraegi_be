@@ -51,7 +51,7 @@ public class DiaryController {
      * @param requestUpdate
      * @return ResponseEntity<String>
      */
-    @PostMapping(DIALY_UPDATE)
+    @PostMapping(value = DIALY_UPDATE, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<String> updateDiary(@RequestPart @Valid DiaryRequestDto.RequestUpdate requestUpdate, @RequestPart(value = "imageFileList", required = false) List<MultipartFile> imageFileList) {
         Long memberId = null;
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
