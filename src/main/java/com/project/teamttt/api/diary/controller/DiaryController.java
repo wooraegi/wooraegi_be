@@ -29,7 +29,7 @@ import static com.project.teamttt.endpoint.DiaryEndPoint.*;
 
 @RestController
 @RequiredArgsConstructor
-@Tag(name = "DIARY API", description = "반려동물 다이어리 관련 api입니다.")
+@Tag(name = "4.DIARY API", description = "반려동물 다이어리 관련 api입니다.")
 public class DiaryController {
 
     private final DiaryService diaryService;

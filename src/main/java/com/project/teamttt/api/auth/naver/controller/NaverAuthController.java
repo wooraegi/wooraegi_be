@@ -21,7 +21,7 @@ import static com.project.teamttt.endpoint.AuthEndPoint.*;
 
 @RestController
 @RequiredArgsConstructor
-@Tag(name = "NAVER API", description = "네이버 로그인 관련 api입니다.")
+@Tag(name = "2.NAVER API", description = "네이버 로그인 관련 api입니다.")
 public class NaverAuthController {
 
     private final NaverAuthService naverAuthService;

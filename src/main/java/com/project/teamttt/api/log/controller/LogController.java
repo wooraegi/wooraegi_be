@@ -30,7 +30,7 @@ import static com.project.teamttt.endpoint.LogEndPoint.*;
 
 @RestController
 @RequiredArgsConstructor
-@Tag(name = "LOG API", description = "데일리 로그 관련 api입니다.")
+@Tag(name = "5.LOG API", description = "데일리 로그 관련 api입니다.")
 public class LogController {
     private final LogService logService;
 

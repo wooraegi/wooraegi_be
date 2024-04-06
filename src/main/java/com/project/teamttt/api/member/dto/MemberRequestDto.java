@@ -44,6 +44,7 @@ public class MemberRequestDto {
             this.nickname = RandomNickName.generateRandomNickname();
             this.social = "MEMBER";
         }
+
     }
 
     @Getter
