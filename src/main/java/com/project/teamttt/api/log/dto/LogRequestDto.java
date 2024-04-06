@@ -32,11 +32,6 @@ public class LogRequestDto {
          */
         private List<String> todoNameList;
 
-        /**
-         * 베이비 로그 아이템 생성일
-         */
-        private OffsetDateTime createdAt;
-
     }
 
     @Getter
@@ -49,11 +44,6 @@ public class LogRequestDto {
          * 베이비 id
          */
         private Baby baby;
-
-        /**
-         * 베이비 로그 생성일
-         */
-        private OffsetDateTime createdAt;
 
     }
 
@@ -72,11 +62,6 @@ public class LogRequestDto {
          * 로그 투두 이름
          */
         private String todoName;
-
-        /**
-         * 베이비 로그 아이템 생성일
-         */
-        private OffsetDateTime createdAt;
 
     }
 

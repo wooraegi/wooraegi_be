@@ -99,19 +99,20 @@ public class LogService {
             for (LogHistoryDto.RequestCreateLogHistory logHistory : requestCreateLogHistory) {
                 logDomainService.save(logHistory, baby);
             }
-            return new ResponseDto<>(true, "SUCCESS SAVE LOG ITEM", null);
+            return new ResponseDto<>(true, "SUCCESS SAVE LOG LOGHISTORY", null);
         } catch (Exception e) {
-            return new ResponseDto<>(false, "FAILED TO SAVE LOG ITEM: " + e.getMessage(), null);
+            return new ResponseDto<>(false, "FAILED TO SAVE LOG LOGHISTORY: " + e.getMessage(), null);
         }
     }
-
     @Transactional
-    public ResponseDto<String> updateLog(LogHistoryDto.UpdateLogHistory requestUpdateLogHistory) {
+    public ResponseDto<String> updateLog(List<LogHistoryDto.UpdateLogHistory> requestUpdateLogHistory) {
         try {
-            Long BabyId = requestUpdateLogHistory.getBabyId();
+            Long BabyId = requestUpdateLogHistory.get(0).getBabyId();
             Baby baby = babyDomainService.findByBabyId(BabyId);
 
-            logDomainService.save(requestUpdateLogHistory, baby);
+            for (LogHistoryDto.UpdateLogHistory updateLogHistory : requestUpdateLogHistory) {
+                logDomainService.save(updateLogHistory, baby);
+            }
 
             return new ResponseDto<>(true, "SUCCESS UPDATE LOGHISTORY", null);
         } catch (Exception e) {

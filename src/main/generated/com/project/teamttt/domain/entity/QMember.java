@@ -22,7 +22,7 @@ public class QMember extends EntityPathBase<Member> {
     public final QBaseEntity _super = new QBaseEntity(this);
 
     //inherited
-    public final DateTimePath<java.time.OffsetDateTime> createdAt = _super.createdAt;
+    public final DateTimePath<java.time.LocalDateTime> createdAt = _super.createdAt;
 
     //inherited
     public final NumberPath<Long> createdBy = _super.createdBy;
@@ -40,7 +40,7 @@ public class QMember extends EntityPathBase<Member> {
     public final StringPath social = createString("social");
 
     //inherited
-    public final DateTimePath<java.time.OffsetDateTime> updatedAt = _super.updatedAt;
+    public final DateTimePath<java.time.LocalDateTime> updatedAt = _super.updatedAt;
 
     //inherited
     public final NumberPath<Long> updatedBy = _super.updatedBy;

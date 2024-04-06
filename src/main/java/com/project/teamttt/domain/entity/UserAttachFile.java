@@ -1,5 +1,6 @@
 package com.project.teamttt.domain.entity;
 
+import com.rabbitmq.client.LongString;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -21,7 +22,7 @@ public class UserAttachFile extends BaseEntity{
     /**
      * 참조하는 id 종류 - baby_id, dialy_id, member_id
      */
-    private String refId;
+    private Long refId;
 
     /**
      * 사용되는 카테고리 종류 - MY_PROFILE, BABY_PROFILE, DIARY
