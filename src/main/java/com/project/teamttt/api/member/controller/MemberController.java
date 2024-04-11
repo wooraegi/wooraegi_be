@@ -37,8 +37,8 @@ public class MemberController {
             description = "wooraegi 기본 회원가입 API" +
                     "\n### * 회원가입 요청 예시" +
                     "\n {\n" +
-                    "\n \"email\" : \"test123@gmail.com\",\n" +
-                    "\n \"password\" : \"password1234\"\n" +
+                    "\n \"email\" : \"wooraegi@gmail.com\",\n" +
+                    "\n \"password\" : \"Password123@\"\n" +
                     "\n }"
     )
     @ApiResponses(value = {
@@ -64,8 +64,8 @@ public class MemberController {
             description = "wooraegi 기본 로그인 API" +
                     "\n### * 로그인 요청 예시" +
                     "\n {\n" +
-                    "\n \"email\" : \"test123@gmail.com\",\n" +
-                    "\n \"password\" : \"password1234\"\n" +
+                    "\n \"email\" : \"wooraegi123@gmail.com\",\n" +
+                    "\n \"password\" : \"Password123@\"\n" +
                     "\n }"
     )
     @ApiResponses(value = {
@@ -110,7 +110,12 @@ public class MemberController {
      * @return ResponseEntity<String>
      */
     @Operation(summary = "비밀번호 수정",
-            description = "새로운 비밀번호 저장"
+            description = "새로운 비밀번호 저장"+
+                    "\n### * 수정 요청 예시" +
+                    "\n {\n" +
+                    "\n \"token\" : 로그인 후 응답받은 토큰\",\n" +
+                    "\n \"password\" : \"newPassword1@\"\n" +
+                    "\n }"
     )
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "비밀번호 변경에 성공했습니다.", content = @Content(mediaType = "text/plain")),

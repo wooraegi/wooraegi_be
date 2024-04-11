@@ -122,7 +122,7 @@ public class MemberService {
             }
 
             Member member = memberDomainService.findByMemberId(memberId);
-            member.setPassword(newPassword);
+            member.setPassword(bCryptPasswordEncoder.encode(newPassword));
             memberDomainService.save(member);
 
             return new ResponseDto<>(true, "SUCCESS UPDATE PASSWORD", null);
