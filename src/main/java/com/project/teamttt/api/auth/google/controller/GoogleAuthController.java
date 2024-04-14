@@ -15,9 +15,8 @@ import static com.project.teamttt.endpoint.AuthEndPoint.*;
 
 @RestController
 @CrossOrigin("*")
-@Tag(name = "2.GOOGLE API", description = "구글 로그인 관련 api입니다.")
+@Tag(name = "2.GOOGLE API", description = "구글 로그인 관련 api입니다. 구글 로그인은 도메인이 없어 스웨거 테스트가 불가합니다.")
 public class GoogleAuthController {
-
     @Autowired
     private GoogleAuthService googleAuthService;
     /**
