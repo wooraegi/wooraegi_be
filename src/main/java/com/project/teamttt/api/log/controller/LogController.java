@@ -100,40 +100,40 @@ public class LogController {
     @Operation(summary = "로그 히스토리 저장",
             description = "로그 히스토리 설정값을 저장하는 API\n" +
                     "로그 히스토리는 로그 날짜를 기준으로 최대 6개까지 저장할 수 있습니다.\n" +
-                    "\n### * 로그 히스토리 저장 요청 예시 +\n" +
+                    "\n### * 로그 히스토리 저장 요청 예시 *\n" +
                     "[" +
                     "\n {\n" +
-                    "\n \"babyId\" : 1\n" +
-                    "\n \"isChecked\" : false\n" +
-                    "\n \"logDate\" : \"2024-04-02\"\n" +
+                    "\n \"babyId\" : 1,\n" +
+                    "\n \"isChecked\" : false,\n" +
+                    "\n \"logDate\" : \"2024-04-02\",\n" +
                     "\n \"todoName\" :  \"약\"\n" +
-                    "\n," +
                     "\n }" +
+                    "\n," +
                     "\n {\n" +
-                    "\n \"babyId\" : 1\n" +
-                    "\n \"isChecked\" : false\n" +
-                    "\n \"logDate\" : \"2024-04-02\"\n" +
+                    "\n \"babyId\" : 1,\n" +
+                    "\n \"isChecked\" : false,\n" +
+                    "\n \"logDate\" : \"2024-04-02\",\n" +
                     "\n \"todoName\" :  \"물\"\n" +
                     "\n }" +
                     "\n," +
                     "\n {\n" +
-                    "\n \"babyId\" : 1\n" +
-                    "\n \"isChecked\" : false\n" +
-                    "\n \"logDate\" : \"2024-04-02\"\n" +
+                    "\n \"babyId\" : 1,\n" +
+                    "\n \"isChecked\" : false,\n" +
+                    "\n \"logDate\" : \"2024-04-02\",\n" +
                     "\n \"todoName\" :  \"산책\"\n" +
                     "\n }" +
                     "\n," +
                     "\n {\n" +
-                    "\n \"babyId\" : 1\n" +
-                    "\n \"isChecked\" : false\n" +
-                    "\n \"logDate\" : \"2024-04-02\"\n" +
+                    "\n \"babyId\" : 1,\n" +
+                    "\n \"isChecked\" : false,\n" +
+                    "\n \"logDate\" : \"2024-04-02\",\n" +
                     "\n \"todoName\" :  \"병원\"\n" +
                     "\n }" +
                     "]"
     )
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "로그 아이템 저장에 성공했습니다.", content = @Content(mediaType = "text/plain")),
-            @ApiResponse(responseCode = "400", description = "로그 아이템 저장에 실패했습니다.", content = @Content(mediaType = "text/plain"))
+            @ApiResponse(responseCode = "200", description = "로그 히스토리 저장에 성공했습니다.", content = @Content(mediaType = "text/plain")),
+            @ApiResponse(responseCode = "400", description = "로그 히스토리 저장에 실패했습니다.", content = @Content(mediaType = "text/plain"))
     })
 
     @PostMapping(LOG_CREATE)
@@ -154,42 +154,45 @@ public class LogController {
      * @return ResponseEntity<String>
      */
     @Operation(summary = "로그 히스토리 수정",
-            description = "데일리 로그 히스토리를 수정하는 API" +
-                    "\n### * 로그 히스토리 저장 요청 예시" +
+            description = "데일리 로그 히스토리를 수정하는 API\n" +
+                    "\n### 로그 히스토리 수정 요청 예시\n" +
                     "[" +
                     "\n {\n" +
-                    "\n \"babyId\" : 1\n" +
-                    "\n \"logHistoryId\" : 1\n" +
-                    "\n \"isChecked\" : false\n" +
-                    "\n \"logDate\" : \"2024-04-02\"\n" +
+                    "\n \"babyId\" : 1,\n" +
+                    "\n \"logHistoryId\" : 1,\n" +
+                    "\n \"isChecked\" : false,\n" +
+                    "\n \"logDate\" : \"2024-04-02\",\n" +
                     "\n \"todoName\" :  \"알약\"\n" +
                     "\n }" +
+                    "\n," +
                     "\n {\n" +
-                    "\n \"babyId\" : 1\n" +
-                    "\n \"logHistoryId\" : 2\n" +
-                    "\n \"isChecked\" : false\n" +
-                    "\n \"logDate\" : \"2024-04-02\"\n" +
+                    "\n \"babyId\" : 1,\n" +
+                    "\n \"logHistoryId\" : 2,\n" +
+                    "\n \"isChecked\" : false,\n" +
+                    "\n \"logDate\" : \"2024-04-02\",\n" +
                     "\n \"todoName\" :  \"저녁밥\"\n" +
                     "\n }" +
+                    "\n," +
                     "\n {\n" +
-                    "\n \"babyId\" : 1\n" +
-                    "\n \"logHistoryId\" : 3\n" +
-                    "\n \"isChecked\" : false\n" +
-                    "\n \"logDate\" : \"2024-04-02\"\n" +
+                    "\n \"babyId\" : 1,\n" +
+                    "\n \"logHistoryId\" : 3,\n" +
+                    "\n \"isChecked\" : false,\n" +
+                    "\n \"logDate\" : \"2024-04-02\",\n" +
                     "\n \"todoName\" :  \"간식\"\n" +
                     "\n }" +
+                    "\n," +
                     "\n {\n" +
-                    "\n \"babyId\" : 1\n" +
-                    "\n \"logHistoryId\" : 4\n" +
-                    "\n \"isChecked\" : false\n" +
-                    "\n \"logDate\" : \"2024-04-02\"\n" +
+                    "\n \"babyId\" : 1,\n" +
+                    "\n \"logHistoryId\" : 4,\n" +
+                    "\n \"isChecked\" : false,\n" +
+                    "\n \"logDate\" : \"2024-04-02\",\n" +
                     "\n \"todoName\" :  \"주사\"\n" +
                     "\n }" +
                     "]"
     )
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "로그 아이템 저장에 성공했습니다.", content = @Content(mediaType = "text/plain")),
-            @ApiResponse(responseCode = "400", description = "로그 아이템 저장에 실패했습니다.", content = @Content(mediaType = "text/plain"))
+            @ApiResponse(responseCode = "200", description = "로그 히스토리 수정에 성공했습니다.", content = @Content(mediaType = "text/plain")),
+            @ApiResponse(responseCode = "400", description = "로그 히스토리 수정에 실패했습니다.", content = @Content(mediaType = "text/plain"))
     })
     @PostMapping(LOG_UPDATE)
     public ResponseEntity<String> updateLog(@RequestBody List<LogHistoryDto.UpdateLogHistory> requestUpdateLogHistory) {
@@ -214,13 +217,13 @@ public class LogController {
             @ApiResponse(responseCode = "400", description = "로그 히스토리 삭제에 실패했습니다.", content = @Content(mediaType = "text/plain"))
     })
     @Parameters({
-            @Parameter(name = "babyId", description = "삭제할 로그 히스토리 아이디", in = ParameterIn.QUERY, required = true),
+            @Parameter(name = "babyId", description = "삭제할 로그 베이비 아이디", in = ParameterIn.QUERY, required = true),
             @Parameter(name = "logDate", description = "삭제할 로그의 날짜 (형식: YYYY-MM-DD)", in = ParameterIn.QUERY, required = true)
     })
     @DeleteMapping(LOG_DELETE)
     public ResponseEntity<String> deleteLog(@RequestParam Long babyId,@RequestParam String logDate) throws ParseException {
 
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date date = dateFormat.parse(logDate);
         ResponseDto<String> response = logService.deleteLog(babyId, date);
 

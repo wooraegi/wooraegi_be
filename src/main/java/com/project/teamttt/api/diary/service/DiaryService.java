@@ -35,23 +35,24 @@ public class DiaryService {
         Member member = memberDomainService.findByMemberId(memberId);
         try {
             Diary diary = diaryDomainService.save(requestCreate, member);
+            String s3Url = "";
 
-            for(MultipartFile imageFile : imageFileList){
-                String s3Url ="";
-                if(imageFile != null){
+            if(imageFileList != null && imageFileList.size() > 0) {
+                for(MultipartFile imageFile : imageFileList){
                     s3Url = s3ImageService.upload(imageFile);
-                }else{
-                    s3Url = "https://wooraegi-bucket.s3.ap-northeast-2.amazonaws.com/c0bf5e53-dwooraegi_baby_profile.JPG";
                 }
-                UserAttachFile userAttachFile = new UserAttachFile();
-                userAttachFile.setRefId(diary.getDiaryId());
-                userAttachFile.setRefType("MEMBER_DIARY");
-                userAttachFile.setFileUrl(s3Url);
-                userAttachFile.setMember(member);
-                userAttachFile.setIsUsed(true);
-
-                userAttachFileRepository.save(userAttachFile);
+            }else{
+                s3Url = "https://wooraegi-bucket.s3.ap-northeast-2.amazonaws.com/33e22629-5%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202024-04-09%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%204.16.52.png";
             }
+
+            UserAttachFile userAttachFile = new UserAttachFile();
+            userAttachFile.setRefId(diary.getDiaryId());
+            userAttachFile.setRefType("MEMBER_DIARY");
+            userAttachFile.setFileUrl(s3Url);
+            userAttachFile.setMember(member);
+            userAttachFile.setIsUsed(true);
+            userAttachFileRepository.save(userAttachFile);
+
             return new ResponseDto<>(true, "SUCCESS CREATE DIARY", null);
         } catch (Exception e) {
             return new ResponseDto<>(false, "FAILED TO CREATE DIARY: " + e.getMessage(), null);
