@@ -100,13 +100,14 @@ public class LogController {
     @Operation(summary = "로그 히스토리 저장",
             description = "로그 히스토리 설정값을 저장하는 API\n" +
                     "로그 히스토리는 로그 날짜를 기준으로 최대 6개까지 저장할 수 있습니다.\n" +
-                    "\n### * 로그 히스토리 저장 요청 예시" +
+                    "\n### * 로그 히스토리 저장 요청 예시 +\n" +
                     "[" +
                     "\n {\n" +
                     "\n \"babyId\" : 1\n" +
                     "\n \"isChecked\" : false\n" +
                     "\n \"logDate\" : \"2024-04-02\"\n" +
                     "\n \"todoName\" :  \"약\"\n" +
+                    "\n," +
                     "\n }" +
                     "\n {\n" +
                     "\n \"babyId\" : 1\n" +
@@ -114,12 +115,14 @@ public class LogController {
                     "\n \"logDate\" : \"2024-04-02\"\n" +
                     "\n \"todoName\" :  \"물\"\n" +
                     "\n }" +
+                    "\n," +
                     "\n {\n" +
                     "\n \"babyId\" : 1\n" +
                     "\n \"isChecked\" : false\n" +
                     "\n \"logDate\" : \"2024-04-02\"\n" +
                     "\n \"todoName\" :  \"산책\"\n" +
                     "\n }" +
+                    "\n," +
                     "\n {\n" +
                     "\n \"babyId\" : 1\n" +
                     "\n \"isChecked\" : false\n" +
