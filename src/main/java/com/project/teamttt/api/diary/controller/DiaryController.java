@@ -89,7 +89,7 @@ public class DiaryController {
             @ApiResponse(responseCode = "200", description = "반려동물 수정에 성공했습니다.", content = @Content(mediaType = "text/plain")),
             @ApiResponse(responseCode = "400", description = "반려동물 수정에 실패했습니다.", content = @Content(mediaType = "text/plain"))
     })
-    @PostMapping(value = DIALY_UPDATE, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PostMapping(DIALY_UPDATE)
     public ResponseEntity<String> updateDiary(@RequestPart @Valid DiaryRequestDto.RequestUpdate requestUpdate, @RequestPart(value = "imageFileList", required = false) List<MultipartFile> imageFileList) {
         Long memberId = null;
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
