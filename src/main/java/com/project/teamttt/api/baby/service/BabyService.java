@@ -40,7 +40,7 @@ public class BabyService {
             if(image != null){
                s3Url = s3ImageService.upload(image);
             }else{
-                s3Url = "https://wooraegi-bucket.s3.ap-northeast-2.amazonaws.com/c0bf5e53-dwooraegi_baby_profile.JPG";
+                s3Url = "https://wooraegi-bucket.s3.ap-northeast-2.amazonaws.com/33e22629-5%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202024-04-09%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%204.16.52.png";
             }
 
             UserAttachFile userAttachFile = new UserAttachFile();

@@ -86,10 +86,10 @@ public class DiaryController {
                     "\n }"
     )
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "반려동물 수정에 성공했습니다.", content = @Content(mediaType = "text/plain")),
-            @ApiResponse(responseCode = "400", description = "반려동물 수정에 실패했습니다.", content = @Content(mediaType = "text/plain"))
+            @ApiResponse(responseCode = "200", description = "다이어리 수정에 성공했습니다.", content = @Content(mediaType = "text/plain")),
+            @ApiResponse(responseCode = "400", description = "다이어리 수정에 실패했습니다.", content = @Content(mediaType = "text/plain"))
     })
-    @PostMapping(DIALY_UPDATE)
+    @PostMapping(value = DIALY_UPDATE, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<String> updateDiary(@RequestPart @Valid DiaryRequestDto.RequestUpdate requestUpdate, @RequestPart(value = "imageFileList", required = false) List<MultipartFile> imageFileList) {
         Long memberId = null;
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -171,8 +171,8 @@ public class DiaryController {
      */
     @Operation(summary = "다이어리 상세페이지", description = "멤버가 등록한 다이어리을 상세페이지를 가져오는 API")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "다이어리를 가져왔습니다.", content = @Content(mediaType = "text/plain")),
-            @ApiResponse(responseCode = "400", description = "다이어리를 가져오지 못했습니다.", content = @Content(mediaType = "text/plain"))
+            @ApiResponse(responseCode = "200", description = "다이어리를 가져왔습니다.", content = @Content(mediaType = "application/json")),
+            @ApiResponse(responseCode = "400", description = "다이어리를 가져오지 못했습니다.", content = @Content(mediaType = "application/json"))
     })
     @Parameters({
             @Parameter(name = "diaryId", description = "선택하는 다이어리 아이디", in = ParameterIn.QUERY, required = true),
