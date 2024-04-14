@@ -73,4 +73,9 @@ public class LogDomainService {
     public List<BabyLogHistory> getBabyLogHistory(Baby baby) {
         return babyLogHistoryRepository.findAllByBaby(baby);
     }
+    public Long delete (Long babyLogHistoryId) {
+        return babyLogHistoryRepository.deleteByBabyLogHistoryId(babyLogHistoryId);
+    }
+
+    public List<BabyLogHistory> findByLogDateAndBaby(Baby baby, Date logDate){ return babyLogHistoryRepository.findByBabyAndLogDate(baby, logDate);}
 }

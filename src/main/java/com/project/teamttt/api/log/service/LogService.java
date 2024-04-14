@@ -91,11 +91,14 @@ public class LogService {
             Baby baby = babyDomainService.findByBabyId(babyId);
 
             Date logDate = requestCreateLogHistory.get(0).getLogDate();
-            Long count = babyLogHistoryRepository.countByLogDate(logDate);
-            if (count >= 7) {
-                return new ResponseDto<>(false, "Failed to save log item: Maximum log items for the same date exceeded (7 or fewer items allowed)", null);
+            Long count = babyLogHistoryRepository.countByLogDateAndBaby(logDate, baby);
+            if (count > 0) {
+                return new ResponseDto<>(false, "Failed to save log item: There is already a log history for the specified date", null);
             }
 
+            if(requestCreateLogHistory.size() > 6){
+                return new ResponseDto<>(false, "Failed to save log item: Maximum number of log history (6) for the same date exceeded", null);
+            }
             for (LogHistoryDto.RequestCreateLogHistory logHistory : requestCreateLogHistory) {
                 logDomainService.save(logHistory, baby);
             }
@@ -109,6 +112,12 @@ public class LogService {
         try {
             Long BabyId = requestUpdateLogHistory.get(0).getBabyId();
             Baby baby = babyDomainService.findByBabyId(BabyId);
+            Date logDate = requestUpdateLogHistory.get(0).getLogDate();
+
+            List<BabyLogHistory> logHistoryList = logDomainService.findByLogDateAndBaby(baby, logDate);
+            for (BabyLogHistory deleteData : logHistoryList) {
+                logDomainService.delete(deleteData.getBabyLogHistoryId());
+            }
 
             for (LogHistoryDto.UpdateLogHistory updateLogHistory : requestUpdateLogHistory) {
                 logDomainService.save(updateLogHistory, baby);
