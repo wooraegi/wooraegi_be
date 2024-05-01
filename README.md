@@ -45,7 +45,28 @@
 &nbsp;&nbsp;&nbsp;&nbsp;● 데일리 로그</br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;•BABY_LOG</br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;•BABY_LOG_ITEM</br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;•BABY_LOG_HIST</br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;•BABY_LOG_HIST</br>ORY
 &nbsp;&nbsp;&nbsp;&nbsp;● 임시비번 발급 (mail)</br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;•javaMailSender</br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;•smtp</br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;•javaMailSender</br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;•smtp</br>
+</br>
+&nbsp;&nbsp;&nbsp;&nbsp;**6-1 : 소셜 로그인/ 회원가입** </br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;•네이버 개발자 센터 등록</br>
+<img width="1246" alt="네이버개발자" src="https://github.com/wooraegi/wooraegi_be/assets/37923273/c6d90595-552f-474e-aded-a576da16dc0d"></br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;•발급받은 client_id, redirect_uri, client_secret를 이용하여 로그인 요청 주소 입력</br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;•사용자 id, pw로 로그인</br>
+<img width="300" alt="스크린샷 2024-05-01 오후 7 09 35" src="https://github.com/wooraegi/wooraegi_be/assets/37923273/05ea1cdc-4b30-4cbf-a31a-beb34c30d552"></br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;•응답받은 인증코드로 네이버에 엑세스 토큰 요청</br>
+<img width="740" alt="스크린샷 2024-05-01 오후 7 13 05" src="https://github.com/wooraegi/wooraegi_be/assets/37923273/16e0e395-6762-4fbe-9212-92f3f6beb414"></br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;•응답받은 토큰으로 네이버에 회원 정보 요청</br>
+<img width="777" alt="스크린샷 2024-05-01 오후 7 14 02" src="https://github.com/wooraegi/wooraegi_be/assets/37923273/c6638add-993a-4176-92ef-f6baa32e0231"></br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;•회원가입 여부 체크 후 비 회원일시 정보 저장</br>
+<img width="697" alt="스크린샷 2024-05-01 오후 7 15 04" src="https://github.com/wooraegi/wooraegi_be/assets/37923273/544d4621-a182-42bd-8890-7ccfd3720627"></br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;•자체 토큰 발급</br>
+<img width="849" alt="스크린샷 2024-05-01 오후 7 15 31" src="https://github.com/wooraegi/wooraegi_be/assets/37923273/6f6f54c3-7b65-4821-bd7d-d25160240822"></br>
+<img width="1506" alt="스크린샷 2024-05-01 오후 7 11 52" src="https://github.com/wooraegi/wooraegi_be/assets/37923273/1e137367-20cf-4851-9995-2b981996b4b3"></br>
+</br>
+&nbsp;&nbsp;&nbsp;&nbsp;**6-2 : 반려동물 등록**
+&nbsp;&nbsp;&nbsp;&nbsp;**6-3 : 다이어리(board) crud**
+&nbsp;&nbsp;&nbsp;&nbsp;**6-4 : 데일리 로그**
+&nbsp;&nbsp;&nbsp;&nbsp;**6-5 : 임시비번 발급 (mail)**
