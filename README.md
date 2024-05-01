@@ -45,10 +45,10 @@
 &nbsp;&nbsp;&nbsp;&nbsp;● 데일리 로그</br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;•BABY_LOG</br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;•BABY_LOG_ITEM</br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;•BABY_LOG_HIST</br>ORY
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;•BABY_LOG_HIST</br>
 &nbsp;&nbsp;&nbsp;&nbsp;● 임시비번 발급 (mail)</br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;•javaMailSender</br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;•smtp</br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;•javaMailSender</br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;•smtp</br>
 </br>
 &nbsp;&nbsp;&nbsp;&nbsp;**6-1 : 소셜 로그인/ 회원가입** </br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;•네이버 개발자 센터 등록</br>
